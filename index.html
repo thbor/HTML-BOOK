@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="./css/bootstrap.css">  
+    <link rel="stylesheet" href="./css/layui.css">  
+    <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.js"></script>
+    <script type="text/javascript" src="./js/layui.js"></script>
+
+    <script type="text/javascript">
+        
+        function testId(){
+            $("#test").toggleClass("blue")
+        }
+        function clickTitle(){
+            // alert("即将前往详情")
+        }
+    </script>
+</head>
+<body >
+     <!--上面部分-->
+     <div class="layui-col-md12 nav">
+        <div class="layui-row">
+          <div class="layui-col-md3 cursor br " onclick="clickTitle()">
+              <img src="./image/book2.png" height="50" width="50">
+              <span class="title white" >在线书屋</span>
+          </div>
+          <div  class="layui-col-md4 layui-input-block">
+            <input type="text" name="bookSearch" placeholder="请输入书名或作者搜索"  autocomplete="off" class="layui-input">
+            <span><button class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-search"></i></button> </span>
+        </div>
+          <div class="float-right mr-1">
+            <button type="button" class="layui-btn layui-btn-primary">登录</button>
+            <button type="button" class="layui-btn layui-btn-primary">注册</button>
+          </div>
+          <!-- <div class="layui-col-md12">
+            内部列
+          </div> -->
+        </div>
+      </div>
+        <!--上面部分 end-->
+        <div class="layui-col-md12 ">
+            <div class="layui-row">
+              <div class="layui-col-md3 center title" onclick="clickTitle()">
+                  新书推荐
+              </div>
+              <div  class="layui-col-md9 layui-input-block">
+               
+              </div>
+              <!-- <div class="layui-col-md12">
+                内部列
+              </div> -->
+            </div>
+          </div>
+        <!--下面部分左边-->
+        <!--下面部分左边 end-->
+        <!--下面部分右边-->
+        <!--下面部分右边 end-->
+       
+
+</body>
+<style>
+    .br{
+        /* background: red; */
+        border-right: 1px solid white;
+    }
+   .center{
+       text-align: center;
+   }
+   .float-left{
+       float: left;
+   }
+   .float-right{
+       float: right;
+   }
+   .mt-1{
+       margin-top: 1rem;
+   }
+   .m1{
+       margin: 1rem;
+   }
+   .nav{
+       line-height: 60px;
+       background:linear-gradient(90deg, #4a66f2, #54bbf2);
+   }
+   .title{
+       font-size: 18px;
+   }
+   .white{
+    color: white;
+   }
+   .cursor{
+    cursor:pointer;
+   }
+   .layui-input{
+       width: 300px !important;
+       margin-top: 10px;
+       display: inline-block !important;
+   }
+</style>
+</html>
