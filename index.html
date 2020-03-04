@@ -2,34 +2,26 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
-    <link rel="stylesheet" href="./css/bootstrap.css">  
     <link rel="stylesheet" href="./css/layui.css">  
+    <script type="text/javascript" src="./layui/layui/dist/layui.all.js"></script>
     <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="./js/bootstrap.js"></script>
-    <script type="text/javascript" src="./js/layui.js"></script>
-
-    <script type="text/javascript">
-        
-        function testId(){
-            $("#test").toggleClass("blue")
-        }
-        function clickTitle(){
-            // alert("即将前往详情")
-        }
-    </script>
+    
 </head>
 <body >
      <!--上面部分-->
-     <div class="layui-col-md12 nav">
+     <div class="layui-col-md12 nav1">
         <div class="layui-row">
           <div class="layui-col-md3 cursor br " onclick="clickTitle()">
-              <img src="./image/book2.png" height="50" width="50">
-              <span class="title white" >在线书屋</span>
+            <div class="ib mf">
+                <img src="./image/book2.png" height="50" width="50">
+                <span class="title white">在线书屋</span>
+            </div>
+              
           </div>
-          <div  class="layui-col-md4 layui-input-block">
+          <!-- <div  class="layui-col-md4 layui-input-block">
             <input type="text" name="bookSearch" placeholder="请输入书名或作者搜索"  autocomplete="off" class="layui-input">
             <span><button class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-search"></i></button> </span>
-        </div>
+          </div> -->
           <div class="float-right mr-1">
             <button type="button" class="layui-btn layui-btn-primary">登录</button>
             <button type="button" class="layui-btn layui-btn-primary">注册</button>
@@ -39,26 +31,117 @@
           </div> -->
         </div>
       </div>
+
+      <div>
+            <!--面包屑-->
+            <ul class="layui-nav test" lay-filter="">
+               <li class="layui-nav-item"><a href="">最新活动</a></li>
+               <li class="layui-nav-item layui-this"><a href="">产品</a></li>
+               <li class="layui-nav-item"><a href="">大数据</a></li>
+               <li class="layui-nav-item">
+                 <a href="javascript:;">解决方案</a>
+                 <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                   <dd><a href="">移动模块</a></dd>
+                   <dd><a href="">后台模版</a></dd>
+                   <dd><a href="">电商平台</a></dd>
+                 </dl>
+               </li>
+               <li class="layui-nav-item"><a href="">社区</a></li>
+             </ul>
+           <!--面包屑 end-->
+        
+      </div>
+
+        <div class="center mt">
+            <input type="text" name="bookSearch" placeholder="请输入书名或作者搜索" autocomplete="off" class="layui-input">
+            <span><button class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-search"></i></button></i></span>
+        </div>
         <!--上面部分 end-->
-        <div class="layui-col-md12 ">
-            <div class="layui-row">
-              <div class="layui-col-md3 center title" onclick="clickTitle()">
-                  新书推荐
-              </div>
-              <div  class="layui-col-md9 layui-input-block">
-               
-              </div>
-              <!-- <div class="layui-col-md12">
-                内部列
-              </div> -->
+        <!--轮播图-->
+        <div class="layui-carousel mt-1" id="carouselId">
+            <div carousel-item id="itemId">
+                <!-- <div>
+                   <div class="book"><img src="./image/2.jpg" class="img1"></div>
+                   <div class="book l2"><img src="./image/2.jpg"></div>
+                   <div class="book l2"><img src="./image/3.jpg"></div>
+                   <div class="book l2"><img src="./image/1.jpg"></div>
+                   <div class="book l2"><img src="./image/1.jpg"></div>
+                </div>        
+                <div>
+                    <div class="book"><img src="./image/1.jpg"></div>
+                    <div class="book"><img src="./image/1.jpg"></div>
+                    <div class="book"><img src="./image/1.jpg"></div>
+                    <div class="book"><img src="./image/1.jpg"></div>
+                    <div class="book"><img src="./image/1.jpg"></div>
+                </div>        
+                <div>                    
+                    <div class="book"><img src="./image/1.jpg"></div>
+                <div class="book"><img src="./image/1.jpg"></div>
+                <div class="book"><img src="./image/1.jpg"></div>
+                <div class="book"><img src="./image/1.jpg"></div>
+                <div class="book"><img src="./image/1.jpg"></div>
+                </div> -->
             </div>
           </div>
-        <!--下面部分左边-->
-        <!--下面部分左边 end-->
+        <!--轮播图 end-->
+
         <!--下面部分右边-->
         <!--下面部分右边 end-->
        
 
+
+
+        <script>
+            //初始化
+            $(function() {
+                getCarouselItem();
+            });
+            function testId(){
+                $("#test").toggleClass("blue")
+            }
+            function clickTitle(){
+                // alert("即将前往详情")
+            }
+            //获取轮播图数据axios得到json数据
+            function getCarouselItem(){
+                // carouselData=[
+                //     name:"临元行"
+                // ]
+                var cHtml="";
+                const bookLength = 10;
+                for(let i=1;i<=bookLength;i++){
+                    //开始
+                    if(i%5==1){
+                        cHtml+='<div><div class="book"><img src="./image/'+i+'.jpg" class="img1">123</div>'
+                    }
+                    //结束
+                    if(i%5==0){
+                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1">123</div></div>'
+                    }
+                    //中间
+                    if(i%5!=1&&i%5!=0){
+                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1">123</div>'
+                    }
+                    
+                }
+                $("#itemId").html(cHtml)
+                layui.use('carousel', function(){
+                var carousel = layui.carousel;
+                //建造实例
+                carousel.render({
+                    elem: '#carouselId'
+                    ,width: '100%' //设置容器宽度
+                    ,arrow: 'always' //始终显示箭头
+                    // ,anim: 'updown' //切换动画方式
+                });
+                });
+            }
+            layui.use('element', function(){
+            var element = layui.element;
+            
+            });
+           
+        </script>
 </body>
 <style>
     .br{
@@ -67,7 +150,10 @@
     }
    .center{
        text-align: center;
+       position: relative;
+
    }
+
    .float-left{
        float: left;
    }
@@ -80,8 +166,9 @@
    .m1{
        margin: 1rem;
    }
-   .nav{
+   .nav1{
        line-height: 60px;
+       max-height: 60px;
        background:linear-gradient(90deg, #4a66f2, #54bbf2);
    }
    .title{
@@ -94,9 +181,46 @@
     cursor:pointer;
    }
    .layui-input{
-       width: 300px !important;
+       width: 400px !important;
        margin-top: 10px;
        display: inline-block !important;
    }
+   .ib{
+       display: inline-block;
+   }
+   .r{
+       position: relative;
+   }
+   .ml-2{
+       padding-left: 2rem;
+   }
+   .search{
+       position: absolute;
+
+   }
+   .layui-btn-primary{
+    border:1px solid #e8e8e8 !important;
+   }
+   .book{
+       border: 1px solid black;
+       position: relative;
+       margin-right:3%;
+       top: 10%;
+       width: 15%;
+       height: 70%;
+       display: inline-block;
+   }
+
+ .img1{
+      width: 100%;
+      height: 100%;
+  }
+  .test{
+      top: 60px;
+      /* height: 60px; */
+      line-height: 60px;
+      width: 100%;
+      position:absolute;
+  }
 </style>
 </html>
