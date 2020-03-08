@@ -49,7 +49,7 @@
 
         <div class="center mt-nav">
             <input type="text" name="bookSearch" placeholder="请输入书名或作者搜索" autocomplete="off" class="layui-input search">
-            <span><button class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-search"></i></button></i></span>
+            <span><button class="layui-btn layui-btn-primary border-0"><i class="layui-icon layui-icon-search"></i></button></i></span>
         </div>
         <!--上面部分 end-->
         <!--轮播图-->
@@ -68,7 +68,8 @@
                 <div class="layui-carousel" id="carouselId">
                     <div carousel-item id="itemId"></div>
                 </div>
-                <div id="bookInfo">
+                <div id="bookInfo" class="inside-div" style="width:98%;margin: 1%;">
+
                 </div>
             </div>
            
@@ -169,15 +170,15 @@
                     let item = bookJson[i-1];
                     //开始
                     if(i%5==1){
-                        cHtml+='<div><div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.des+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div>'
+                        cHtml+='<div><div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.bookName+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div>'
                     }
                     //结束
                     if(i%5==0){
-                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.des+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div></div>'
+                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.bookName+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div></div>'
                     }
                     //中间
                     if(i%5!=1&&i%5!=0){
-                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.des+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div>'
+                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.bookName+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div>'
                     }
                 }
                 $("#itemId").html(cHtml)
@@ -392,5 +393,12 @@
   a:hover{
       color: red;
   }
+  
+.border-0 {
+    border: none !important;
+    position: relative;
+    left: -60px;
+    background: transparent;
+}
 </style>
 </html>
