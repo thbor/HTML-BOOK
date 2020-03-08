@@ -65,8 +65,10 @@
                 </div>
             </div>
             <div class="right center">
-                <div class="layui-carousel " id="carouselId">
-                    <div class="" carousel-item id="itemId"></div>
+                <div class="layui-carousel" id="carouselId">
+                    <div carousel-item id="itemId"></div>
+                </div>
+                <div id="bookInfo">
                 </div>
             </div>
            
@@ -87,18 +89,11 @@
                 </div>
             </form>
 
-   
         <!--轮播图 end-->
-
-        <!--下面部分右边-->
-        <!--下面部分右边 end-->
-       
-
-
-
         <script>
             //初始化
             $(function() {
+                
                 //验证是否登录，登录则显示用户信息，否则显示登录信息
                 ifLogin();
                 getCarouselItem();
@@ -141,11 +136,15 @@
                 alert("即将前往首页")
             }
             function clickBook(i){
-                console.log("点击书"+i);
+                console.log("点击书");
+                console.log(i)
                 //跳转该书到书籍详细页面
             }
-            function onmouseoverBook(i){
-                console.log("鼠标滑过书"+i);
+            function onmouseoverBook(item){
+                console.log(item)
+                // let cHtml =""
+                // cHtml+='<div>书名：'+item.bookName+'</div><div>作者：'+item.author+'</div><div>简介：'+item.des+'</div>'
+                // $("#bookInfo").html(cHtml)
                 //显示书籍的相关信息到下面
             }
             //获取轮播图数据axios得到json数据
@@ -153,7 +152,7 @@
                 // carouselData=[
                 //     name:"临元行"
                 // ]
-                let bookJson=[
+                var bookJson=[
                     {bookName:"密战无痕",author:"长风",category:"历史军事",des:"密战无痕的简介"},
                     {bookName:"凡尘一剑",author:"剑东来",category:"武侠修真",des:"凡尘一剑的简介"},
                     {bookName:"我真的是人生赢家",author:"刘阿懦",category:"其他类型",des:"我真的是人生赢家的简介"},
@@ -170,15 +169,15 @@
                     let item = bookJson[i-1];
                     //开始
                     if(i%5==1){
-                        cHtml+='<div><div class="book"><img src="./image/'+i+'.jpg" class="img1" onclick="clickBook('+i+')" onmouseover="onmouseoverBook('+i+')">'+item.bookName+'</div>'
+                        cHtml+='<div><div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.des+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div>'
                     }
                     //结束
                     if(i%5==0){
-                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" onclick="clickBook('+i+')" onmouseover="onmouseoverBook('+i+')">'+item.bookName+'</div></div>'
+                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.des+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div></div>'
                     }
                     //中间
                     if(i%5!=1&&i%5!=0){
-                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" onclick="clickBook('+i+')" onmouseover="onmouseoverBook('+i+')">'+item.bookName+'</div>'
+                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.des+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div>'
                     }
                 }
                 $("#itemId").html(cHtml)
@@ -204,7 +203,7 @@
                     {bookName:"凡尘一剑",author:"剑东来",category:"武侠修真"},
                     {bookName:"我真的是人生赢家",author:"刘阿懦",category:"其他类型"},
                     {bookName:"次元法典",author:"西贝猫",category:"网游动漫"},
-                    {bookName:"托身白刃里，浪迹红",author:"接卡口",category:"武侠修真"},
+                    {bookName:"托身白刃里，浪迹红尘里",author:"接卡口",category:"武侠修真"},
                     {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
                     {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
                     {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
@@ -213,8 +212,12 @@
                 ]
                 for(let i=0;i<newBookJson.length;i++){
                     let item = newBookJson[i];
+                    let itemBook = newBookJson[i].bookName;
+                    if(item.bookName.length>4){
+                        itemBook = itemBook.substring(0,4)+"..."
+                    }
                     nHtml+='<div class="newBook-div bb">'
-                    nHtml+='<span class="float-left ">'+'['+item.category+']'+item.bookName+'</span>';
+                    nHtml+='<span class="float-left">'+'<a href="http://www.baidu.com" title="'+item.bookName+'">'+'['+item.category+']'+itemBook+'</a>'+'</span>';
                     nHtml+='<p class="float-right">'+item.author+'</p>'
                     nHtml+='</div>'
                 }
@@ -344,7 +347,7 @@
   .right{
       margin-top: 1rem;
       left: 24%;
-      width: 76%;
+      width: 75%;
       height: 700px;
       border: 1px solid #dde0e4;
       position: relative;
@@ -385,6 +388,9 @@
   }
   .b2{
     background: white;
+  }
+  a:hover{
+      color: red;
   }
 </style>
 </html>
