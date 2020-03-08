@@ -5,26 +5,22 @@
     <link rel="stylesheet" href="./css/layui.css">  
     <script type="text/javascript" src="./layui/layui/dist/layui.all.js"></script>
     <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
-    
+    <script type="text/javascript" src="./js/common.js"></script>
 </head>
 <body >
      <!--上面部分-->
-     <div class="layui-col-md12 nav1">
+     <div class=" nav1">
         <div class="layui-row">
-          <div class="layui-col-md3 cursor br " onclick="clickTitle()">
+          <div class="layui-col-md3 cursor  " onclick="clickTitle()">
             <div class="ib mf">
                 <img src="./image/book2.png" height="50" width="50">
                 <span class="title white">在线书屋</span>
             </div>
-              
           </div>
-          <!-- <div  class="layui-col-md4 layui-input-block">
-            <input type="text" name="bookSearch" placeholder="请输入书名或作者搜索"  autocomplete="off" class="layui-input">
-            <span><button class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-search"></i></button> </span>
-          </div> -->
-          <div class="float-right mr-1">
-            <button type="button" class="layui-btn layui-btn-primary">登录</button>
-            <button type="button" class="layui-btn layui-btn-primary">注册</button>
+        
+          <div class="float-right mr-1" style="display: none;" id="notLogin">
+            <button type="button" class="layui-btn layui-btn-primary" onclick="clickLogin()">登录</button>
+            <button type="button" class="layui-btn layui-btn-primary" onclick="clickRegister()">注册</button>
           </div>
           <!-- <div class="layui-col-md12">
             内部列
@@ -34,55 +30,64 @@
 
       <div>
             <!--面包屑-->
-            <ul class="layui-nav test" lay-filter="">
-               <li class="layui-nav-item"><a href="">最新活动</a></li>
-               <li class="layui-nav-item layui-this"><a href="">产品</a></li>
-               <li class="layui-nav-item"><a href="">大数据</a></li>
+            <!-- <ul class="layui-nav test" lay-filter="">
+               <li class="layui-nav-item"><a href="">首页</a></li>
+               <li class="layui-nav-item layui-this"><a href="">玄幻魔法</a></li>
+               <li class="layui-nav-item"><a href="">武侠修真</a></li>
                <li class="layui-nav-item">
-                 <a href="javascript:;">解决方案</a>
-                 <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                   <dd><a href="">移动模块</a></dd>
-                   <dd><a href="">后台模版</a></dd>
-                   <dd><a href="">电商平台</a></dd>
+                 <a href="javascript:;">都市言情</a>
+                 <dl class="layui-nav-child"> 
+                   <dd><a href="">历史军事</a></dd>
+                   <dd><a href="">侦探推理</a></dd>
+                   <dd><a href="">网游动漫</a></dd>
                  </dl>
                </li>
                <li class="layui-nav-item"><a href="">社区</a></li>
-             </ul>
+             </ul> -->
            <!--面包屑 end-->
-        
       </div>
 
-        <div class="center mt">
-            <input type="text" name="bookSearch" placeholder="请输入书名或作者搜索" autocomplete="off" class="layui-input">
+        <div class="center mt-nav">
+            <input type="text" name="bookSearch" placeholder="请输入书名或作者搜索" autocomplete="off" class="layui-input search">
             <span><button class="layui-btn layui-btn-primary"><i class="layui-icon layui-icon-search"></i></button></i></span>
         </div>
         <!--上面部分 end-->
         <!--轮播图-->
-        <div class="layui-carousel mt-1" id="carouselId">
-            <div carousel-item id="itemId">
-                <!-- <div>
-                   <div class="book"><img src="./image/2.jpg" class="img1"></div>
-                   <div class="book l2"><img src="./image/2.jpg"></div>
-                   <div class="book l2"><img src="./image/3.jpg"></div>
-                   <div class="book l2"><img src="./image/1.jpg"></div>
-                   <div class="book l2"><img src="./image/1.jpg"></div>
-                </div>        
-                <div>
-                    <div class="book"><img src="./image/1.jpg"></div>
-                    <div class="book"><img src="./image/1.jpg"></div>
-                    <div class="book"><img src="./image/1.jpg"></div>
-                    <div class="book"><img src="./image/1.jpg"></div>
-                    <div class="book"><img src="./image/1.jpg"></div>
-                </div>        
-                <div>                    
-                    <div class="book"><img src="./image/1.jpg"></div>
-                <div class="book"><img src="./image/1.jpg"></div>
-                <div class="book"><img src="./image/1.jpg"></div>
-                <div class="book"><img src="./image/1.jpg"></div>
-                <div class="book"><img src="./image/1.jpg"></div>
-                </div> -->
+        <div>
+            <div class="left">
+                <div class="category inside-div mt-1">
+                    <div class="center" style="font-size: 18px;">作品分类</div>
+                    <div id="category"></div>
+                </div>
+                <div class="newBook inside-div mt-1">
+                    <div class="center bb" style="font-size: 18px;">新书推荐</div>
+                    <div id="newBook"></div>
+                </div>
             </div>
-          </div>
+            <div class="right center">
+                <div class="layui-carousel " id="carouselId">
+                    <div class="" carousel-item id="itemId"></div>
+                </div>
+            </div>
+           
+        </div>
+        <!--登录-->
+            <form class="layui-form" action="" id="loginId" style="display: none;">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">用户名</label>
+                    <div class="layui-input-block">
+                    <input type="text" name="title" required  lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">密码</label>
+                    <div class="layui-input-block">
+                    <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </form>
+
+   
         <!--轮播图 end-->
 
         <!--下面部分右边-->
@@ -94,35 +99,87 @@
         <script>
             //初始化
             $(function() {
+                //验证是否登录，登录则显示用户信息，否则显示登录信息
+                ifLogin();
                 getCarouselItem();
+                getNewBook();
+                getCategory();
             });
+            //用户是否登录  status：0.未登录  1.已登陆
+            function ifLogin(){
+                //TODO  sessionStorage.setItem("status", 0);放在login方法里
+                sessionStorage.setItem("status", 0);
+                var value = sessionStorage.getItem("status");
+                console.log(sessionStorage)
+                if(value==0){
+                    document.getElementById("notLogin").style.display="";//显
+                }else{
+                    document.getElementById("notLogin").style.display="none";//隐
+                }
+                
+            }
+            function clickLogin(){
+                alertForm("登录","#loginId",login)
+            }
+            function clickRegister(){
+                alertForm("注册","#loginId",register)
+            }
+            function login(){
+                //TODO 1.数据验证  2.ajax
+                alert("login")
+                layer.closeAll()
+            }
+            function register(){
+                //TODO 1.数据验证  2.ajax
+                alert("register")
+                layer.closeAll()
+            }
             function testId(){
                 $("#test").toggleClass("blue")
             }
             function clickTitle(){
-                // alert("即将前往详情")
+                alert("即将前往首页")
+            }
+            function clickBook(i){
+                console.log("点击书"+i);
+                //跳转该书到书籍详细页面
+            }
+            function onmouseoverBook(i){
+                console.log("鼠标滑过书"+i);
+                //显示书籍的相关信息到下面
             }
             //获取轮播图数据axios得到json数据
             function getCarouselItem(){
                 // carouselData=[
                 //     name:"临元行"
                 // ]
+                let bookJson=[
+                    {bookName:"密战无痕",author:"长风",category:"历史军事",des:"密战无痕的简介"},
+                    {bookName:"凡尘一剑",author:"剑东来",category:"武侠修真",des:"凡尘一剑的简介"},
+                    {bookName:"我真的是人生赢家",author:"刘阿懦",category:"其他类型",des:"我真的是人生赢家的简介"},
+                    {bookName:"次元法典",author:"西贝猫",category:"网游动漫",des:"托身白刃里，浪迹红的简介"},
+                    {bookName:"托身白刃里，浪迹红",author:"接卡口",category:"武侠修真",des:"密战无痕的简介"},
+                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
+                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
+                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
+                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
+                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
+                ]
                 var cHtml="";
-                const bookLength = 10;
-                for(let i=1;i<=bookLength;i++){
+                for(let i=1;i<=bookJson.length;i++){
+                    let item = bookJson[i-1];
                     //开始
                     if(i%5==1){
-                        cHtml+='<div><div class="book"><img src="./image/'+i+'.jpg" class="img1">123</div>'
+                        cHtml+='<div><div class="book"><img src="./image/'+i+'.jpg" class="img1" onclick="clickBook('+i+')" onmouseover="onmouseoverBook('+i+')">'+item.bookName+'</div>'
                     }
                     //结束
                     if(i%5==0){
-                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1">123</div></div>'
+                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" onclick="clickBook('+i+')" onmouseover="onmouseoverBook('+i+')">'+item.bookName+'</div></div>'
                     }
                     //中间
                     if(i%5!=1&&i%5!=0){
-                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1">123</div>'
+                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" onclick="clickBook('+i+')" onmouseover="onmouseoverBook('+i+')">'+item.bookName+'</div>'
                     }
-                    
                 }
                 $("#itemId").html(cHtml)
                 layui.use('carousel', function(){
@@ -131,7 +188,7 @@
                 carousel.render({
                     elem: '#carouselId'
                     ,width: '100%' //设置容器宽度
-                    ,arrow: 'always' //始终显示箭头
+                    ,arrow: 'none' //始终显示箭头
                     // ,anim: 'updown' //切换动画方式
                 });
                 });
@@ -140,7 +197,56 @@
             var element = layui.element;
             
             });
-           
+            function getNewBook(){
+                let nHtml = "";
+                let newBookJson=[
+                    {bookName:"密战无痕",author:"长风",category:"历史军事"},
+                    {bookName:"凡尘一剑",author:"剑东来",category:"武侠修真"},
+                    {bookName:"我真的是人生赢家",author:"刘阿懦",category:"其他类型"},
+                    {bookName:"次元法典",author:"西贝猫",category:"网游动漫"},
+                    {bookName:"托身白刃里，浪迹红",author:"接卡口",category:"武侠修真"},
+                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
+                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
+                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
+                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
+                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
+                ]
+                for(let i=0;i<newBookJson.length;i++){
+                    let item = newBookJson[i];
+                    nHtml+='<div class="newBook-div bb">'
+                    nHtml+='<span class="float-left ">'+'['+item.category+']'+item.bookName+'</span>';
+                    nHtml+='<p class="float-right">'+item.author+'</p>'
+                    nHtml+='</div>'
+                }
+                $("#newBook").html(nHtml);
+            }
+            function getCategory(){
+                let categoryJson=["历史军事","武侠修真","其他类型","网游动漫","都市言情","都市言情","都市言情","都市言情","玄幻魔法"]
+                let nHtml = ""
+                for(let i=1;i+1<=categoryJson.length;i++){
+                    let item = categoryJson[i-1];
+                    let item2 = categoryJson[i];
+                    i++;
+                    if(parseInt((i-1)/2)%2==0){
+                        nHtml+='<div class="b1">'
+                    }else{
+                        nHtml+='<div class="b2">'
+                    }
+                    //TODO  需要修改分类的地址
+                    nHtml+='<div class="cateItem center">'+'<a href="http://www.baidu.com">'+item+'</a>'+'</div>';
+                    nHtml+='<div class="cateItem center">'+'<a href="http://www.baidu.com">'+item2+'</a>'+'</div>';
+                    nHtml+='</div>'
+                    //为奇数且为最后一个节点时
+                    if(i+1==categoryJson.length){
+                        let item3 = categoryJson[i];
+                        nHtml+='<div class="b1">'
+                        nHtml+='<div class="cateItem center">'+'<a href="http://www.baidu.com">'+item3+'</a>'+'</div>';
+                        nHtml+='</div>'
+                        
+                    }
+                }
+                $("#category").html(nHtml);
+            }
         </script>
 </body>
 <style>
@@ -150,7 +256,8 @@
     }
    .center{
        text-align: center;
-       position: relative;
+       /* position: relative; */
+       
 
    }
 
@@ -171,6 +278,9 @@
        max-height: 60px;
        background:linear-gradient(90deg, #4a66f2, #54bbf2);
    }
+   .box{
+
+   }
    .title{
        font-size: 18px;
    }
@@ -180,9 +290,10 @@
    .cursor{
     cursor:pointer;
    }
-   .layui-input{
+   .search{
        width: 400px !important;
-       margin-top: 10px;
+       /* 相对于nav下降100px */
+       margin-top: 20px;   
        display: inline-block !important;
    }
    .ib{
@@ -194,10 +305,7 @@
    .ml-2{
        padding-left: 2rem;
    }
-   .search{
-       position: absolute;
-
-   }
+  
    .layui-btn-primary{
     border:1px solid #e8e8e8 !important;
    }
@@ -221,6 +329,62 @@
       line-height: 60px;
       width: 100%;
       position:absolute;
+  }
+  .left{
+      margin-top: 1rem;
+      width: 20%;
+      height: 700px;
+      border: 1px solid #dde0e4;
+      padding-left:1% ;
+      padding-right:1% ;
+      position: absolute;
+      /* margin: 20px; */
+      display: inline-block;
+  }
+  .right{
+      margin-top: 1rem;
+      left: 24%;
+      width: 76%;
+      height: 700px;
+      border: 1px solid #dde0e4;
+      position: relative;
+      display: inline-block;
+  }
+  .bb{
+      border-bottom: 1px dotted gray;
+  }
+  .newBook-div{
+      width: 100%;
+      height: 30px;
+      line-height: 30px;
+  }
+  .layui-this{
+      background-color: white !important;
+  }
+  .inside-div{
+    border: 1px solid #dde0e4;
+    /* padding: 10px; */
+    width: 100%;
+    height:  50%;
+  }
+  .category{
+      width: 100%;
+      height: 43%;
+  }
+  .cateItem{
+      height: 30px;
+      line-height: 30px;
+      display: inline-block;
+      width: 35%;
+      margin-right: 8%;
+      margin-left: 2%;
+      
+  }
+  .b1{
+    background: #f7f6f2;
+  }
+  .b2{
+    background: white;
   }
 </style>
 </html>
