@@ -3,9 +3,10 @@
     <meta charset="UTF-8">
     <title>首页</title>
     <link rel="stylesheet" href="./css/layui.css">  
-    <script type="text/javascript" src="./layui/layui/dist/layui.all.js"></script>
+    <link rel="stylesheet" href="./css/swiper.min.css">  
     <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="./js/common.js"></script>
+    <script type="text/javascript" src="./layui/layui/layui.all.js"></script>
+    <script type="text/javascript" src="./js/swiper.min.js"></script>
 </head>
 <body >
      <!--上面部分-->
@@ -59,18 +60,28 @@
                     <div class="center" style="font-size: 18px;">作品分类</div>
                     <div id="category"></div>
                 </div>
-                <div class="newBook inside-div mt-1">
+                <!-- <div class="newBook inside-div mt-1">
                     <div class="center bb" style="font-size: 18px;">新书推荐</div>
                     <div id="newBook"></div>
+                </div> -->
+                <div id="bookInfo" class="inside-div" style="width:98%;margin: 1%;">
+                  <div style="font-size: 20px;" class="center bb-1">XXX書籍推薦</div>
+                    <div class="swiper-div">
+                      <div class="swiper-container">
+                        <div class="swiper-wrapper" id="wrapperId"></div>
+                      </div>
+                    </div>
+                    <!--書籍介紹-->
+                    <div id="bookDesc">
+
+                    </div>
                 </div>
             </div>
             <div class="right center">
                 <div class="layui-carousel" id="carouselId">
                     <div carousel-item id="itemId"></div>
                 </div>
-                <div id="bookInfo" class="inside-div" style="width:98%;margin: 1%;">
-
-                </div>
+              
             </div>
            
         </div>
@@ -94,160 +105,231 @@
         <script>
             //初始化
             $(function() {
-                
-                //验证是否登录，登录则显示用户信息，否则显示登录信息
-                ifLogin();
-                getCarouselItem();
-                getNewBook();
-                getCategory();
+              //验证是否登录，登录则显示用户信息，否则显示登录信息
+              ifLogin();
+              getCarouselItem();
+              getNewBook();
+              getCategory();
+              initSwiper();
             });
+            //初始化swiper的dom
+            function initSwiper(){
+              //這裡字段不能多空格，否則拼接會報錯
+              let swiperJson=[
+                {img1:1,bookName:"1",author:"a1",desc:"111111111 "},
+                {img1:2,bookName:"2",author:"a2",desc:"222222222 "},
+                {img1:3,bookName:"3",author:"a3",desc:"33333333 "},
+                {img1:4,bookName:"4",author:"a4",desc:"4444444444 "},
+                {img1:5,bookName:"5",author:"a5",desc:"5555555 "},
+                {img1:6,bookName:"6",author:"a6",desc:"66666 "},
+                {img1:7,bookName:"7",author:"a7",desc:"777777 "},
+                {img1:8,bookName:"8",author:"a8",desc:"888888 "},
+                ];
+              let nHtml="";
+              if(swiperJson.length>0){
+                var keys = Object.keys(swiperJson[0]);
+              }
+              for(let i=0;i<swiperJson.length;i++){
+                let item = swiperJson[i]
+                for(let key of keys){
+                  if(typeof(item[key])=="string"){
+                    item[key] = item[key].trim()
+                  }
+                }
+
+                nHtml+='<div class="swiper-slide"><img onclick=swiperItemClick('+JSON.stringify(item)+') src="./image/'+item.img1+'.jpg" class="img2" title="'+item.bookName+'">'+item.bookName+'</div>'
+              }
+              $("#wrapperId").html(nHtml)
+              getSwiper(swiperJson);
+            }
+            function getSwiperDesc(item){
+              let nHtml = "";
+              nHtml+='<div>'+"書名:"+item.bookName+'</div>'
+              nHtml+='<div>'+"作者:"+item.author+'</div>'
+              nHtml+='<div>'+"簡介:"+item.desc+'</div>'
+              $("#bookDesc").html(nHtml)
+            }
+            
+            //將swiper顯示出來
+            function getSwiper(swiperJson){
+              var mySwiper = new Swiper('.swiper-container', {
+              //速度
+              speed:300,
+              autoplay : {
+                //延遲
+                delay:1000
+              },
+              //初始化爲initialSlide+1=下標
+              initialSlide:-1,
+              //是否一直循環
+              loop:true,
+              effect : 'coverflow',
+              //同时显示的slides数量
+              slidesPerView : 3,
+              //active slide会居中
+              centeredSlides : true,
+              //使得第一个和最后一个Slide 始终贴合边缘。
+              centeredSlidesBounds: true,
+              on:{
+                //監聽自動切換  this.realIndex是當前的索引
+              autoplay:function(){
+                // var txt = $('.swiper-slide-active').attr('data-swiper-slide-index');   
+                // console.log(this.realIndex+1)
+                getSwiperDesc(swiperJson[this.realIndex])
+                  },
+                }
+              })
+            }
+            //點擊swiper（點擊一本書）
+            function swiperItemClick(item){
+              console.log(item)
+            }
+
             //用户是否登录  status：0.未登录  1.已登陆
             function ifLogin(){
-                //TODO  sessionStorage.setItem("status", 0);放在login方法里
-                sessionStorage.setItem("status", 0);
-                var value = sessionStorage.getItem("status");
-                console.log(sessionStorage)
-                if(value==0){
-                    document.getElementById("notLogin").style.display="";//显
-                }else{
-                    document.getElementById("notLogin").style.display="none";//隐
-                }
-                
+              //TODO  sessionStorage.setItem("status", 0);放在login方法里
+              sessionStorage.setItem("status", 0);
+              var value = sessionStorage.getItem("status");
+              console.log(sessionStorage)
+              if(value==0){
+                document.getElementById("notLogin").style.display="";//显
+              }else{
+                document.getElementById("notLogin").style.display="none";//隐
+              }   
             }
             function clickLogin(){
-                alertForm("登录","#loginId",login)
+              alertForm("登录","#loginId",login)
             }
             function clickRegister(){
-                alertForm("注册","#loginId",register)
+              alertForm("注册","#loginId",register)
             }
             function login(){
-                //TODO 1.数据验证  2.ajax
-                alert("login")
-                layer.closeAll()
+              //TODO 1.数据验证  2.ajax
+              alert("login")
+              layer.closeAll()
             }
             function register(){
-                //TODO 1.数据验证  2.ajax
-                alert("register")
-                layer.closeAll()
+              //TODO 1.数据验证  2.ajax
+              alert("register")
+              layer.closeAll()
             }
             function testId(){
-                $("#test").toggleClass("blue")
+              $("#test").toggleClass("blue")
             }
             function clickTitle(){
-                alert("即将前往首页")
+              alert("即将前往首页")
             }
             function clickBook(i){
-                console.log("点击书");
-                console.log(i)
-                //跳转该书到书籍详细页面
+              console.log("点击书");
+              console.log(i)
+              //跳转该书到书籍详细页面
             }
             function onmouseoverBook(item){
-                console.log(item)
-                // let cHtml =""
-                // cHtml+='<div>书名：'+item.bookName+'</div><div>作者：'+item.author+'</div><div>简介：'+item.des+'</div>'
-                // $("#bookInfo").html(cHtml)
-                //显示书籍的相关信息到下面
+              console.log(item)
+              // let cHtml =""
+              // cHtml+='<div>书名：'+item.bookName+'</div><div>作者：'+item.author+'</div><div>简介：'+item.des+'</div>'
+              // $("#bookInfo").html(cHtml)
+              //显示书籍的相关信息到下面
             }
             //获取轮播图数据axios得到json数据
             function getCarouselItem(){
                 // carouselData=[
                 //     name:"临元行"
                 // ]
-                var bookJson=[
-                    {bookName:"密战无痕",author:"长风",category:"历史军事",des:"密战无痕的简介"},
-                    {bookName:"凡尘一剑",author:"剑东来",category:"武侠修真",des:"凡尘一剑的简介"},
-                    {bookName:"我真的是人生赢家",author:"刘阿懦",category:"其他类型",des:"我真的是人生赢家的简介"},
-                    {bookName:"次元法典",author:"西贝猫",category:"网游动漫",des:"托身白刃里，浪迹红的简介"},
-                    {bookName:"托身白刃里，浪迹红",author:"接卡口",category:"武侠修真",des:"密战无痕的简介"},
-                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
-                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
-                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
-                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
-                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
+              var bookJson=[
+                {bookName:"密战无痕",author:"长风",category:"历史军事",des:"密战无痕的简介"},
+                {bookName:"凡尘一剑",author:"剑东来",category:"武侠修真",des:"凡尘一剑的简介"},
+                {bookName:"我真的是人生赢家",author:"刘阿懦",category:"其他类型",des:"我真的是人生赢家的简介"},
+                {bookName:"次元法典",author:"西贝猫",category:"网游动漫",des:"托身白刃里，浪迹红的简介"},
+                {bookName:"托身白刃里，浪迹红",author:"接卡口",category:"武侠修真",des:"密战无痕的简介"},
+                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
+                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
+                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
+                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
+                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
                 ]
-                var cHtml="";
+              var cHtml="";
                 for(let i=1;i<=bookJson.length;i++){
-                    let item = bookJson[i-1];
-                    //开始
-                    if(i%5==1){
-                        cHtml+='<div><div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.bookName+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div>'
-                    }
-                    //结束
-                    if(i%5==0){
-                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.bookName+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div></div>'
-                    }
-                    //中间
-                    if(i%5!=1&&i%5!=0){
-                        cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.bookName+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div>'
-                    }
+                  let item = bookJson[i-1];
+                   //开始
+                  if(i%5==1){
+                    cHtml+='<div><div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.bookName+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div>'
+                  }
+                  //结束
+                  if(i%5==0){
+                    cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.bookName+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div></div>'
+                  }
+                  //中间
+                  if(i%5!=1&&i%5!=0){
+                    cHtml+='<div class="book"><img src="./image/'+i+'.jpg" class="img1" title="'+item.bookName+'" onclick=clickBook('+JSON.stringify(item)+') onmouseover=onmouseoverBook('+JSON.stringify(item)+')>'+item.bookName+'</div>'
+                  }
                 }
                 $("#itemId").html(cHtml)
                 layui.use('carousel', function(){
                 var carousel = layui.carousel;
                 //建造实例
                 carousel.render({
-                    elem: '#carouselId'
-                    ,width: '100%' //设置容器宽度
-                    ,arrow: 'none' //始终显示箭头
-                    // ,anim: 'updown' //切换动画方式
-                });
-                });
+                  elem: '#carouselId'
+                  ,width: '100%' //设置容器宽度
+                  ,arrow: 'none' //始终显示箭头
+                  // ,anim: 'updown' //切换动画方式
+              });
+            });
             }
             layui.use('element', function(){
-            var element = layui.element;
-            
+              var element = layui.element;
+           
             });
             function getNewBook(){
-                let nHtml = "";
-                let newBookJson=[
-                    {bookName:"密战无痕",author:"长风",category:"历史军事"},
-                    {bookName:"凡尘一剑",author:"剑东来",category:"武侠修真"},
-                    {bookName:"我真的是人生赢家",author:"刘阿懦",category:"其他类型"},
-                    {bookName:"次元法典",author:"西贝猫",category:"网游动漫"},
-                    {bookName:"托身白刃里，浪迹红尘里",author:"接卡口",category:"武侠修真"},
-                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
-                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
-                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
-                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
-                    {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
-                ]
-                for(let i=0;i<newBookJson.length;i++){
-                    let item = newBookJson[i];
-                    let itemBook = newBookJson[i].bookName;
-                    if(item.bookName.length>4){
-                        itemBook = itemBook.substring(0,4)+"..."
-                    }
-                    nHtml+='<div class="newBook-div bb">'
-                    nHtml+='<span class="float-left">'+'<a href="http://www.baidu.com" title="'+item.bookName+'">'+'['+item.category+']'+itemBook+'</a>'+'</span>';
-                    nHtml+='<p class="float-right">'+item.author+'</p>'
-                    nHtml+='</div>'
+              let nHtml = "";
+              let newBookJson=[
+                {bookName:"密战无痕",author:"长风",category:"历史军事"},
+                {bookName:"凡尘一剑",author:"剑东来",category:"武侠修真"},
+                {bookName:"我真的是人生赢家",author:"刘阿懦",category:"其他类型"},
+                {bookName:"次元法典",author:"西贝猫",category:"网游动漫"},
+                {bookName:"托身白刃里，浪迹红尘里",author:"接卡口",category:"武侠修真"},
+                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
+                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
+                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
+                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
+                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情"},
+              ]
+              for(let i=0;i<newBookJson.length;i++){
+                let item = newBookJson[i];
+                let itemBook = newBookJson[i].bookName;
+                if(item.bookName.length>4){
+                    itemBook = itemBook.substring(0,4)+"..."
                 }
-                $("#newBook").html(nHtml);
+                nHtml+='<div class="newBook-div bb">'
+                nHtml+='<span class="float-left">'+'<a href="http://www.baidu.com" title="'+item.bookName+'">'+'['+item.category+']'+itemBook+'</a>'+'</span>';
+                nHtml+='<p class="float-right">'+item.author+'</p>'
+                nHtml+='</div>'
+              }
+              $("#newBook").html(nHtml);
             }
             function getCategory(){
-                let categoryJson=["历史军事","武侠修真","其他类型","网游动漫","都市言情","都市言情","都市言情","都市言情","玄幻魔法"]
-                let nHtml = ""
-                for(let i=1;i+1<=categoryJson.length;i++){
-                    let item = categoryJson[i-1];
-                    let item2 = categoryJson[i];
-                    i++;
-                    if(parseInt((i-1)/2)%2==0){
-                        nHtml+='<div class="b1">'
-                    }else{
-                        nHtml+='<div class="b2">'
-                    }
-                    //TODO  需要修改分类的地址
-                    nHtml+='<div class="cateItem center">'+'<a href="http://www.baidu.com">'+item+'</a>'+'</div>';
-                    nHtml+='<div class="cateItem center">'+'<a href="http://www.baidu.com">'+item2+'</a>'+'</div>';
-                    nHtml+='</div>'
-                    //为奇数且为最后一个节点时
-                    if(i+1==categoryJson.length){
-                        let item3 = categoryJson[i];
-                        nHtml+='<div class="b1">'
-                        nHtml+='<div class="cateItem center">'+'<a href="http://www.baidu.com">'+item3+'</a>'+'</div>';
-                        nHtml+='</div>'
-                        
-                    }
+              let categoryJson=["历史军事","武侠修真","其他类型","网游动漫","都市言情","都市言情","都市言情","都市言情","玄幻魔法"]
+              let nHtml = ""
+              for(let i=1;i+1<=categoryJson.length;i++){
+                let item = categoryJson[i-1];
+                let item2 = categoryJson[i];
+                i++;
+                if(parseInt((i-1)/2)%2==0){
+                  nHtml+='<div class="b1">'
+                }else{
+                  nHtml+='<div class="b2">'
+                }
+                //TODO  需要修改分类的地址
+                nHtml+='<div class="cateItem center">'+'<a href="http://www.baidu.com">'+item+'</a>'+'</div>';
+                nHtml+='<div class="cateItem center">'+'<a href="http://www.baidu.com">'+item2+'</a>'+'</div>';
+                nHtml+='</div>'
+                //为奇数且为最后一个节点时
+                if(i+1==categoryJson.length){
+                  let item3 = categoryJson[i];
+                  nHtml+='<div class="b1">'
+                  nHtml+='<div class="cateItem center">'+'<a href="http://www.baidu.com">'+item3+'</a>'+'</div>';
+                  nHtml+='</div>'
+                  }
                 }
                 $("#category").html(nHtml);
             }
@@ -295,75 +377,87 @@
     cursor:pointer;
    }
    .search{
-       width: 400px !important;
-       /* 相对于nav下降100px */
-       margin-top: 20px;   
-       display: inline-block !important;
+      width: 400px !important;
+      /* 相对于nav下降100px */
+      margin-top: 20px;   
+      display: inline-block !important;
    }
    .ib{
-       display: inline-block;
+      display: inline-block;
    }
    .r{
-       position: relative;
+      position: relative;
    }
    .ml-2{
-       padding-left: 2rem;
+      padding-left: 2rem;
    }
   
    .layui-btn-primary{
-    border:1px solid #e8e8e8 !important;
+      border:1px solid #e8e8e8 !important;
    }
    .book{
-       border: 1px solid black;
-       position: relative;
-       margin-right:3%;
-       top: 10%;
-       width: 15%;
-       height: 70%;
-       display: inline-block;
+      border: 1px solid black;
+      position: relative;
+      margin-right:3%;
+      top: 10%;
+      width: 15%;
+      height: 70% !important;
+      display: inline-block;
    }
 
  .img1{
-      width: 100%;
-      height: 100%;
+    width: 100%;
+    height: 100%;
+  }
+  .img2{
+    width: 100px;
+    height: 150px;
+  }
+  .swiper-div{
+    /* width: 100%; */
+    /* border: 1px solid #dde0e4; */
+    /* height: 40%; */
   }
   .test{
-      top: 60px;
-      /* height: 60px; */
-      line-height: 60px;
-      width: 100%;
-      position:absolute;
+    top: 60px;
+    /* height: 60px; */
+    line-height: 60px;
+    width: 100%;
+    position:absolute;
   }
   .left{
-      margin-top: 1rem;
-      width: 20%;
-      height: 700px;
-      border: 1px solid #dde0e4;
-      padding-left:1% ;
-      padding-right:1% ;
-      position: absolute;
-      /* margin: 20px; */
-      display: inline-block;
+    margin-top: 1rem;
+    width: 20%;
+    height: 700px;
+    border: 1px solid #dde0e4;
+    padding-left:1% ;
+    padding-right:1% ;
+    position: absolute;
+    /* margin: 20px; */
+    display: inline-block;
   }
   .right{
-      margin-top: 1rem;
-      left: 24%;
-      width: 75%;
-      height: 700px;
-      border: 1px solid #dde0e4;
-      position: relative;
-      display: inline-block;
+    margin-top: 1rem;
+    left: 24%;
+    width: 75%;
+    height: 700px;
+    border: 1px solid #dde0e4;
+    position: relative;
+    display: inline-block;
   }
   .bb{
-      border-bottom: 1px dotted gray;
+    border-bottom: 1px dotted gray;
+  }
+  .bb-1{
+    margin-bottom: 2rem;
   }
   .newBook-div{
-      width: 100%;
-      height: 30px;
-      line-height: 30px;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
   }
   .layui-this{
-      background-color: white !important;
+    background-color: white !important;
   }
   .inside-div{
     border: 1px solid #dde0e4;
@@ -372,16 +466,16 @@
     height:  50%;
   }
   .category{
-      width: 100%;
-      height: 43%;
+    width: 100%;
+    height: 43%;
   }
   .cateItem{
-      height: 30px;
-      line-height: 30px;
-      display: inline-block;
-      width: 35%;
-      margin-right: 8%;
-      margin-left: 2%;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+    width: 35%;
+    margin-right: 8%;
+    margin-left: 2%;
       
   }
   .b1{
@@ -391,14 +485,15 @@
     background: white;
   }
   a:hover{
-      color: red;
+    color: red;
   }
   
-.border-0 {
+  .border-0 {
     border: none !important;
     position: relative;
     left: -60px;
     background: transparent;
-}
+  }
+
 </style>
 </html>
