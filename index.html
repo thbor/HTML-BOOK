@@ -23,9 +23,6 @@
             <button type="button" class="layui-btn layui-btn-primary" onclick="clickLogin()">登录</button>
             <button type="button" class="layui-btn layui-btn-primary" onclick="clickRegister()">注册</button>
           </div>
-          <!-- <div class="layui-col-md12">
-            内部列
-          </div> -->
         </div>
       </div>
 
@@ -60,28 +57,48 @@
                     <div class="center" style="font-size: 18px;">作品分类</div>
                     <div id="category"></div>
                 </div>
-                <!-- <div class="newBook inside-div mt-1">
+                <div class="newBook inside-div mt-1">
                     <div class="center bb" style="font-size: 18px;">新书推荐</div>
                     <div id="newBook"></div>
-                </div> -->
-                <div id="bookInfo" class="inside-div" style="width:98%;margin: 1%;">
-                  <div style="font-size: 20px;" class="center bb-2">XXX書籍推薦</div>
-                    <div class="swiper-div bb-2">
-                      <div class="swiper-container">
-                        <div class="swiper-wrapper" id="wrapperId"></div>
-                      </div>
-                    </div>
-                    <!--書籍介紹-->
-                    <div id="bookDesc">
-
-                    </div>
                 </div>
+
             </div>
-            <div class="right center">
+            <div class="right ">
                 <div class="layui-carousel" id="carouselId">
                     <div carousel-item id="itemId"></div>
                 </div>
-              
+                <div id="bookInfo" class="inside-div" style="width:98%;margin: 1%;">
+                  <div style="width: 100%;height: 30%;">
+                  top
+                  
+                  </div>
+                  <div style="width: 100%;height: 70%; ">
+                    <div style="float:left;width: 40%;height: 100%;">
+                      <div>
+                        <div style="font-size: 20px" class=" bb-2"></div>
+                          <div class="swiper-div bb-2 ib">
+                            <div class="swiper-container">
+                              <div class="swiper-wrapper" id="wrapperId"></div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="bookDesc" >
+                      <div id="bookDesc" ></div>
+                    </div>
+
+                   
+                  </div>
+                      <!-- <div class="swiper-div bb-2 ">
+                        <div class="swiper-container">
+                          <div class="swiper-wrapper" id="wrapperId"></div>
+                        </div>
+                        <div id="bookDesc" >
+                          
+                        </div>
+                      </div> -->
+                      
+                  </div>
             </div>
            
         </div>
@@ -116,7 +133,7 @@
             function initSwiper(){
               //這裡字段不能多空格，否則拼接會報錯
               let swiperJson=[
-                {img1:1,bookName:"1",author:"a1",desc:"111111111 "},
+                {img1:1,bookName:"我真的是人生赢家",author:"刘阿懦",desc:"我真的是人生赢家的简介........................ "},
                 {img1:2,bookName:"2",author:"a2",desc:"222222222 "},
                 {img1:3,bookName:"3",author:"a3",desc:"33333333 "},
                 {img1:4,bookName:"4",author:"a4",desc:"4444444444 "},
@@ -144,9 +161,10 @@
             }
             function getSwiperDesc(item){
               let nHtml = "";
-              nHtml+='<div>'+"書名:"+item.bookName+'</div>'
-              nHtml+='<div>'+"作者:"+item.author+'</div>'
-              nHtml+='<div>'+"簡介:"+item.desc+'</div>'
+              nHtml+='<div class="bookname bb-2 center">'+item.bookName+'</div>'
+              nHtml+='<div class="bb-1">'+"作者:"+item.author+'</div>'
+              nHtml+='<div class="bb-1">'+"簡介:"+item.desc+'</div>'
+              nHtml+='<div class="bb-1 center"><button type="button" class="layui-btn layui-btn-primary" ><a href="http://www.baidu.com">'+"書籍詳情"+'</a></button></div>'
               $("#bookDesc").html(nHtml)
             }
             
@@ -170,6 +188,10 @@
               centeredSlides : true,
               //使得第一个和最后一个Slide 始终贴合边缘。
               centeredSlidesBounds: true,
+              // pagination :{
+              //   el: '.swiper-pagination',
+              //   clickable :true,
+              // },
               on:{
                 //監聽自動切換  this.realIndex是當前的索引
               autoplay:function(){
@@ -415,9 +437,9 @@
     height: 150px;
   }
   .swiper-div{
-    /* width: 100%; */
+    width: 45%;
     /* border: 1px solid #dde0e4; */
-    /* height: 40%; */
+    height: 40%;
   }
   .test{
     top: 60px;
@@ -449,6 +471,9 @@
   .bb{
     border-bottom: 1px dotted gray;
   }
+  .bb-1{
+    margin-bottom: 1rem;
+  }
   .bb-2{
     margin-bottom: 2rem;
   }
@@ -468,7 +493,7 @@
   }
   .category{
     width: 100%;
-    height: 43%;
+    height: 35%;
   }
   .cateItem{
     height: 30px;
@@ -495,6 +520,17 @@
     left: -60px;
     background: transparent;
   }
-
+  .bookDesc{
+    float:left;
+    margin-left: 1rem;
+    width: 50%;
+    height: 100%;
+    position:relative;
+    right: 17%;
+  }
+  .bookname{
+    font-size: 20px;
+  }
+ 
 </style>
 </html>
