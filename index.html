@@ -65,8 +65,8 @@
                     <div id="newBook"></div>
                 </div> -->
                 <div id="bookInfo" class="inside-div" style="width:98%;margin: 1%;">
-                  <div style="font-size: 20px;" class="center bb-1">XXX書籍推薦</div>
-                    <div class="swiper-div">
+                  <div style="font-size: 20px;" class="center bb-2">XXX書籍推薦</div>
+                    <div class="swiper-div bb-2">
                       <div class="swiper-container">
                         <div class="swiper-wrapper" id="wrapperId"></div>
                       </div>
@@ -183,6 +183,7 @@
             //點擊swiper（點擊一本書）
             function swiperItemClick(item){
               console.log(item)
+              getSwiperDesc(item)
             }
 
             //用户是否登录  status：0.未登录  1.已登陆
@@ -448,7 +449,7 @@
   .bb{
     border-bottom: 1px dotted gray;
   }
-  .bb-1{
+  .bb-2{
     margin-bottom: 2rem;
   }
   .newBook-div{
