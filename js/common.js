@@ -41,6 +41,7 @@
                               });
                       //重新渲染form
                       form.render();
+                      layer.iframeAuto(index);
                     },
                     //點擊確定
                     yes: function(index, layero){
@@ -55,5 +56,6 @@
                       })
                     },
                 })
+                
               })
                 }

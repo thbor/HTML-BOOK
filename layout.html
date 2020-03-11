@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>布局頁面</title>
+    <link rel="stylesheet" href="./css/layui.css">  
+    <link rel="stylesheet" href="./css/swiper.min.css">  
+    <link rel="stylesheet" href="./css/common.css">  
+     <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./layui/layui/layui.all.js"></script>
+    <script type="text/javascript" src="./js/swiper.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+</head>
+<body >
+  <!-- <iframe MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no src="./MyShelf.html" width="100%"  height="auto"></iframe> -->
+     <!--上面部分-->
+     <div class=" nav1">
+        <div class="layui-row">
+          <div class="layui-col-md3 cursor  " onclick="clickTitle()">
+            <div class="ib mf">
+                <img src="./image/book2.png" height="50" width="50">
+                <span class="title white">在线书屋</span>
+            </div>
+          </div>
+        
+          <div class="float-right mr-1" style="display: none;" id="notLogin">
+            <button type="button" class="layui-btn layui-btn-primary" onclick="clickLogin()">登录</button>
+            <button type="button" class="layui-btn layui-btn-primary" onclick="clickRegister()">注册</button>
+          </div>
+          <div id="logged" style="display: none;border: 1px solid transparent;width: 100px;height: 100px;float: right;" onmousemove="showPerson()" onmouseout="hiddenPerson()">
+                <img src="./image/girl.jpg" class="float-right circle tx"  >
+                <div class="showLogout" style="visibility:hidden;" id="showLogout">
+                  <li class="li-showLogout" onclick="logout()">退出登錄</li>
+                  <li class="li-showLogout"><a href="./MyShelf.html">我的書架</a></li>
+                </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+            <!--面包屑-->
+            <!-- <ul class="layui-nav test" lay-filter="">
+               <li class="layui-nav-item"><a href="">首页</a></li>
+               <li class="layui-nav-item layui-this"><a href="">玄幻魔法</a></li>
+               <li class="layui-nav-item"><a href="">武侠修真</a></li>
+               <li class="layui-nav-item">
+                 <a href="javascript:;">都市言情</a>
+                 <dl class="layui-nav-child"> 
+                   <dd><a href="">历史军事</a></dd>
+                   <dd><a href="">侦探推理</a></dd>
+                   <dd><a href="">网游动漫</a></dd>
+                 </dl>
+               </li>
+               <li class="layui-nav-item"><a href="">社区</a></li>
+             </ul> -->
+           <!--面包屑 end-->
+      </div>
+
+        <div class="center mt-nav">
+            <input type="text" name="bookSearch" placeholder="请输入书名或作者搜索" autocomplete="off" class="layui-input search">
+            <span><button class="layui-btn layui-btn-primary border-0"><i class="layui-icon layui-icon-search"></i></button></i></span>
+        </div>
+        <!--上面部分 end-->
+        <!--轮播图-->
+       
+        <!--登录-->
+            <form class="layui-form" id="loginId" action="" style="display: none;">
+                <div class="layui-form-item">
+                  <label class="layui-form-label">用戶名</label>
+                  <div class="layui-input-block">
+                    <input type="text" name="lusername" lay-verify="lusername" placeholder="请输入用戶名" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+                <div class="layui-form-item">
+                  <label class="layui-form-label">密码</label>
+                  <div class="layui-input-inline">
+                    <input type="password" name="lpassword" lay-verify="lpassword" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                  </div>
+                </div>
+                <!-- <button class="sub-bindbtn" lay-submit lay-filter="bind" style="display: none;"> -->
+              </form>
+        <!--登录 end-->
+        <!--註冊-->
+        <form class="layui-form" action="" id="registerId" style="display: none;">
+            <div class="layui-form-item">
+                <label class="layui-form-label">用户名</label>
+                <div class="layui-input-block">
+                <input type="text" name="rusername" lay-verify="rusername"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">密码</label>
+                <div class="layui-input-block">
+                <input type="password" name="rpassword" id="rpassword" lay-verify="rpassword" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">確認密码</label>
+                <div class="layui-input-block">
+                <input type="password" name="rcheckPassword" id="rcheckPassword" lay-verify="rcheckPassword" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </form>
+      
+        <!--註冊 end-->
+        <!--轮播图 end-->
+        <script>
+            //初始化
+            $(function() {
+              //验证是否登录，登录则显示用户信息，否则显示登录信息
+              ifLogin();
+            });
+            function showPerson(){
+              let s = document.getElementById("showLogout")
+              s.style.visibility = ""
+            }
+            function hiddenPerson(){
+              let s = document.getElementById("showLogout")
+              s.style.visibility = "hidden"
+            }
+           
+            function logout(){
+              quesForm('你確定要退出登錄嗎?',realLogout)
+            }
+            function realLogout(){
+              sessionStorage.removeItem("status")
+              layer.closeAll()
+              ifLogin();
+            }
+            //用户是否登录  status：0.未登录  1.已登陆
+            function ifLogin(){
+              //TODO  sessionStorage.setItem("status", 0);放在login方法里
+              // sessionStorage.setItem("status", 0);
+              var value = sessionStorage.getItem("status");
+              console.log(value)
+              if(!value){
+                document.getElementById("notLogin").style.display="";//显
+                document.getElementById("logged").style.display="none";//隱
+                layer.msg('你已退出登錄', {icon: 2})
+                
+              }else{
+                document.getElementById("notLogin").style.display="none";//隐
+                document.getElementById("logged").style.display="";//显
+                layer.msg('登錄成功', {icon: 1})
+              }   
+            }
+            //登錄表單驗證
+            function validateLogin(form){
+              var form = layui.form;
+              form.verify({
+                    lusername:function(value){
+                      if(value.length==0){
+                         return '用戶名不能爲空'
+                       }
+                    },
+                    lpassword: function(value) {
+                       if(value.length==0){
+                         return '密碼不能爲空'
+                    }
+                  }
+                });
+            }
+           
+            //註冊表單驗證
+            function validateRegister(form){
+              form.verify({
+                rusername:function(value){
+                  if(value.length==0){
+                     return '用戶名不能爲空'
+                    }
+                },
+                rpassword:function(value){
+                  if(value.length<6){
+                     return '密码不能小於6位'
+                    }
+                },
+                // rpassword:  [
+                //   /^[\S]{6,12}$/,
+                //   '密码必须6到12位，且不能出现空格'
+                // ],
+                });
+            }
+
+            function clickLogin(){
+              alertcomfirm("loginLayer","登录","#loginId",'loginVerify',validateLogin,ajaxLogin)
+            }
+            function clickRegister(){
+              alertcomfirm("registerLayer","註冊","#registerId",'registerVerify',validateRegister,ajaxRegister)
+            }
+            function ajaxLogin(data){
+              console.log(data)
+              //如果成功，將status寫入session
+              sessionStorage.setItem("status", 1);
+              layer.closeAll()
+              ifLogin()
+            }
+            function ajaxRegister(data){
+              console.log("ajaxRegister",data)
+              if(data.rpassword!==data.rcheckPassword){
+                layer.msg('兩次輸入的密碼不一致', {icon: 5});
+                return false;
+              }
+              layer.closeAll()
+            }
+            function testId(){
+              $("#test").toggleClass("blue")
+            }
+            function clickTitle(){
+              alert("即将前往首页")
+            }
+      
+            layui.use('element', function(){
+              var element = layui.element;
+            });
+        
+        
+        </script>
+</body>
+</html>
