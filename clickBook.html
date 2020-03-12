@@ -11,14 +11,24 @@
 <body>
     <iframe id="frame-content" name="myFrame" MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no src="./layout.html" width="100%"  height="600px"></iframe> 
     <div class="main" id="main">
-      <!-- <button onclick="test123()">123</button> -->
+      <div class="center">
+        <input type="text" name="bookSearch" placeholder="请输入书名或作者搜索" autocomplete="off" class="layui-input search">
+        <span><button class="layui-btn layui-btn-primary border-0"><i class="layui-icon layui-icon-search"></i></button></i></span>
+    </div>
+      <div class="main2">
+              <!-- <button onclick="test123()">123</button> -->
       <!--inner這裡是未有在內部可以y軸滑動-->
       <div class="inner">
         <!--books是很多個oneBook   oneBook是一本書的樣子-->
-        <div class="books" id="books"></div>
-
-
+        <!-- <div class="book">
+          <img src="./image/1.jpg">
+        </div>
+       
+        <div class="">点击阅读</div> -->
       </div>
+      </div>
+        
+
 
 
 
@@ -30,7 +40,6 @@
       });
       function init(){
         returnZindex();
-        initMyShelf();
       }
       //layer的問題，需要改變zindex並且在調用彈出窗口時（登錄和退出時）改變z-index
       function changeZindex(){
@@ -47,30 +56,7 @@
         console.log("ip"+ip)
         return ip;
       }
-      function initMyShelf(){
-        //status爲1時爲喜歡,這裡是後台傳過來的數據，喜歡的書名
-        let myshelf=[
-                {imgName:"1",bookName:"密战无痕",author:"长风",category:"历史军事",status:1},
-                {imgName:"2",bookName:"凡尘一剑",author:"剑东来",category:"武侠修真",status:1},
-                {imgName:"3",bookName:"我真的是人生赢家",author:"刘阿懦",category:"其他类型",status:1},
-                {imgName:"4",bookName:"次元法典",author:"西贝猫",category:"网游动漫",status:1},
-                {imgName:"5",bookName:"托身白刃里，浪迹红尘里",author:"接卡口",category:"武侠修真",status:1},
-                {imgName:"6",bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",status:1},
-                {imgName:"7",bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",status:1},
-                {imgName:"8",bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",status:1},
-                {imgName:"9",bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",status:1},
-                {imgName:"10",bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",status:1},
-              ]
-        let nHtml = "";
-        for(let i=0;i<myshelf.length;i++){
-          let item = myshelf[i];
-          nHtml+='<div class="oneBook m-2 book-solid"><img src="./image/'+item.imgName+'.jpg" class="oneBook" title="'+item.bookName+'"></div>'     
-        }
-        // onclick=swiperItemClick('+JSON.stringify(item)+')
-        nHtml+='<div class="oneBook m-2 book-solid dotted" onclick=toIndex()><i class="layui-icon large">&#xe624;</i></div>'     
-        $("#books").html(nHtml)
-            
-      }
+
       function toIndex(){
         let ip = getChildIp();
         //前往首頁
@@ -84,41 +70,23 @@
 <style>
 .main{
   position:absolute;
-  border: 1px solid #dde0e4;
-  top: 130px;
+  top: 60px;
   width: 96%;
   margin-left: 2%;
   height: 80%;
   z-index: -1;
+  
+}
+.main2{
+  top: 80px;
+  position:absolute;
+  border: 1px solid #dde0e4;
   overflow-y: auto;
   overflow-x: hidden;
 }
 .inner{
   height: 100%;
   width: 100%;
-}
-.m-2{
-  margin: 20px;
-}
-.book-solid{
-  border: 1px solid gray;
-}
-.oneBook{
-  display: inline-block;
-  width: 150px;
-  height: 200px;
-}
-/*dotted  虛線*/
-.dotted{
-  border: 1px dotted gray;
-  position: absolute;
-  cursor: pointer;
-}
-.large{
-  font-size: 100px;
-  color:gainsboro;
-  line-height: 200px;
-  margin: 25px;
 }
 </style>
 </html>
