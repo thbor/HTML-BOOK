@@ -5,11 +5,7 @@
     <link rel="stylesheet" href="./css/layui.css">  
     <link rel="stylesheet" href="./css/common.css">  
      <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
-<<<<<<< HEAD
     <script type="text/javascript" src="./layui/layui/layui.all.js"></script>
-=======
-    <script type="text/javascript" src="./layui/layui/dist/layui.all.js"></script>
->>>>>>> 68d2e5593acc0252b38f045052d86f72ac90d64d
     <script type="text/javascript" src="./js/common.js"></script>
 </head>
 <body >
@@ -32,7 +28,7 @@
                 <img src="./image/girl.jpg" class="float-right circle tx"  >
                 <div class="showLogout" style="visibility:hidden;" id="showLogout">
                   <li class="li-showLogout" onclick="logout()">退出登錄</li>
-                  <li class="li-showLogout"><a onclick="toMyShelf()">我的書架123</a></li>
+                  <li class="li-showLogout"><a onclick="toMyShelf()">我的書架</a></li>
                 </div>
           </div>
         </div>
@@ -112,7 +108,6 @@
               ifLogin();
               initIP();
             });
-<<<<<<< HEAD
             function initIP(){
               const ip = "http://localhost:8081/HTML-BOOK/"
             }
@@ -229,15 +224,11 @@
               if(myShelfUrl!==myShelfUrl){
                 window.location.href = myShelfUrl
               }
-              
             }
             layui.use('element', function(){
               var element = layui.element;
             });
         
-=======
-            
->>>>>>> 68d2e5593acc0252b38f045052d86f72ac90d64d
         
         </script>
 </body>
