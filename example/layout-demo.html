@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>我的書架</title>
+    <link rel="stylesheet" href="./css/layui.css">  
+    <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./layui/layui/layui.all.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+</head>
+<body>
+    <iframe id="frame-content" MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no src="./layout.html" width="100%"  height="900px"></iframe> 
+    <div class="main" id="main">
+      <button onclick="test123()">123</button>
+    </div>
+  </body>
+<script>
+      $(function() {
+        init();
+      });
+      function init(){
+        returnZindex();
+      }
+      //layer的問題，需要改變zindex並且在調用彈出窗口時（登錄和退出時）改變z-index
+      function changeZindex(){
+        let dom = document.getElementById("main")
+        dom.style.zIndex = -1;
+      }
+      function returnZindex(){
+        let dom = document.getElementById("main")
+        dom.style.zIndex = 0;
+      }
+      function test123(){
+        alert("123")
+      }
+     
+    
+</script>
+<style>
+.main{
+  position:absolute;
+  border: 1px solid #dde0e4;
+  top: 130px;
+  width: 96%;
+  margin-left: 2%;
+  height: 80%;
+  z-index: -1;
+}
+</style>
+</html>

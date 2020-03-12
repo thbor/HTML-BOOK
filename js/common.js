@@ -62,7 +62,7 @@
         //TODO   ajax 
         ajaxMethod(data.field)
         console.log("yes")
-        returnParentListen();
+        // returnParentListen();
         // console.log(data)
         return false
         // layer.closeAll()

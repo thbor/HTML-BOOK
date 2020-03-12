@@ -110,6 +110,7 @@
             });
             function initIP(){
               const ip = "http://localhost:8081/HTML-BOOK/"
+              return ip;
             }
             function showPerson(){
               let s = document.getElementById("showLogout")
@@ -195,6 +196,7 @@
               console.log(data)
               //如果成功，將status寫入session
               sessionStorage.setItem("status", 1);
+              returnParentListen();
               layer.closeAll()
               ifLogin()
             }
@@ -204,6 +206,7 @@
                 layer.msg('兩次輸入的密碼不一致', {icon: 5});
                 return false;
               }
+              returnParentListen();
               layer.closeAll()
 
             }
@@ -211,18 +214,22 @@
               $("#test").toggleClass("blue")
             }
             function clickTitle(){
-              alert("即将前往首页")
+              const ip = initIP();
+              let indexUrl = ip+"index.html"
+              if(parent.location.href != indexUrl){
+                parent.location.href = indexUrl
+              }else{
+                layer.msg('已在當前頁面', {icon: 3})
+              }
             }
             function toMyShelf(){
-              let currentHref = window.location.href
-              console.log("currentHref",currentHref)
-              // let MyShelfHref = "http://localhost:8081/HTML-BOOK/layout.html";
-              //點擊本頁面
-              console.log()
-              let myShelfUrl = ip+"MyShelf.html"
-              console.log("myShelfUrl",myShelfUrl)
-              if(myShelfUrl!==myShelfUrl){
-                window.location.href = myShelfUrl
+              const ip = initIP();
+              let myShelfUrl = ip+"MyShelf.html";
+              console.log("書架地址",myShelfUrl)
+              if(parent.location.href != myShelfUrl){
+                parent.location.href = myShelfUrl
+              } else{
+                layer.msg('已在當前頁面', {icon: 3})
               }
             }
             layui.use('element', function(){
