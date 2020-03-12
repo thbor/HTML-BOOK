@@ -3,11 +3,9 @@
     <meta charset="UTF-8">
     <title>布局頁面</title>
     <link rel="stylesheet" href="./css/layui.css">  
-    <link rel="stylesheet" href="./css/swiper.min.css">  
     <link rel="stylesheet" href="./css/common.css">  
      <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="./layui/layui/layui.all.js"></script>
-    <script type="text/javascript" src="./js/swiper.min.js"></script>
     <script type="text/javascript" src="./js/common.js"></script>
 </head>
 <body >
@@ -30,7 +28,7 @@
                 <img src="./image/girl.jpg" class="float-right circle tx"  >
                 <div class="showLogout" style="visibility:hidden;" id="showLogout">
                   <li class="li-showLogout" onclick="logout()">退出登錄</li>
-                  <li class="li-showLogout"><a href="./MyShelf.html">我的書架</a></li>
+                  <li class="li-showLogout"><a onclick="toMyShelf()">我的書架123</a></li>
                 </div>
           </div>
         </div>
@@ -108,7 +106,11 @@
             $(function() {
               //验证是否登录，登录则显示用户信息，否则显示登录信息
               ifLogin();
+              initIP();
             });
+            function initIP(){
+              const ip = "http://localhost:8081/HTML-BOOK/"
+            }
             function showPerson(){
               let s = document.getElementById("showLogout")
               s.style.visibility = ""
@@ -120,11 +122,13 @@
            
             function logout(){
               quesForm('你確定要退出登錄嗎?',realLogout)
+              parentListen();
             }
             function realLogout(){
               sessionStorage.removeItem("status")
               layer.closeAll()
               ifLogin();
+              returnParentListen();
             }
             //用户是否登录  status：0.未登录  1.已登陆
             function ifLogin(){
@@ -182,6 +186,7 @@
 
             function clickLogin(){
               alertcomfirm("loginLayer","登录","#loginId",'loginVerify',validateLogin,ajaxLogin)
+              
             }
             function clickRegister(){
               alertcomfirm("registerLayer","註冊","#registerId",'registerVerify',validateRegister,ajaxRegister)
@@ -200,6 +205,7 @@
                 return false;
               }
               layer.closeAll()
+
             }
             function testId(){
               $("#test").toggleClass("blue")
@@ -207,7 +213,19 @@
             function clickTitle(){
               alert("即将前往首页")
             }
-      
+            function toMyShelf(){
+              let currentHref = window.location.href
+              console.log("currentHref",currentHref)
+              // let MyShelfHref = "http://localhost:8081/HTML-BOOK/layout.html";
+              //點擊本頁面
+              console.log()
+              let myShelfUrl = ip+"MyShelf.html"
+              console.log("myShelfUrl",myShelfUrl)
+              if(myShelfUrl!==myShelfUrl){
+                window.location.href = myShelfUrl
+              }
+              
+            }
             layui.use('element', function(){
               var element = layui.element;
             });
