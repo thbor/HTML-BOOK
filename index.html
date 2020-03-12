@@ -6,15 +6,19 @@
     <link rel="stylesheet" href="./css/swiper.min.css">  
     <link rel="stylesheet" href="./css/common.css">  
     <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="./layui/layui/layui.all.js"></script>
+    <script type="text/javascript" src="./layui/layui/dist/layui.all.js"></script>
     <script type="text/javascript" src="./js/swiper.min.js"></script>
     <script type="text/javascript" src="./js/common.js"></script>
 </head>
 <body >
   
-    <iframe id="frame-content" MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no src="./layout.html" width="100%"  height="100%"></iframe> 
+    <iframe id="frame-content" MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no src="./layout.html" width="100%"  height="600px"></iframe> 
     <div class="main" id="main">
         <div>
+          <div class="center">
+            <input type="text" name="bookSearch" placeholder="请输入书名或作者搜索" autocomplete="off" class="layui-input search">
+            <span><button class="layui-btn layui-btn-primary border-0"><i class="layui-icon layui-icon-search"></i></button></i></span>
+        </div>
             <!--面包屑-->
             <!-- <ul class="layui-nav test" lay-filter="">
                <li class="layui-nav-item"><a href="">首页</a></li>
@@ -308,11 +312,22 @@
         </script>
 </body>
 <style>
-.main{
+/* .main{
   position:absolute;
   width: 96%;
   margin-left: 2%;
   z-index: -1;
+} */
+.main{
+  position:absolute;
+  /* border: 1px solid #dde0e4; */
+  top: 60px;
+  width: 96%;
+  margin-left: 2%;
+  height: 80%;
+  z-index: -1;
+  /* overflow-y: auto; */
+  /* overflow-x: hidden; */
 }
 </style>
 </html>
