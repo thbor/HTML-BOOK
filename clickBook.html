@@ -11,22 +11,45 @@
 <body>
     <iframe id="frame-content" name="myFrame" MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no src="./layout.html" width="100%"  height="600px"></iframe> 
     <div class="main" id="main">
-      <div class="center">
+      <div class="center mb-1">
         <input type="text" name="bookSearch" placeholder="请输入书名或作者搜索" autocomplete="off" class="layui-input search">
         <span><button class="layui-btn layui-btn-primary border-0"><i class="layui-icon layui-icon-search"></i></button></i></span>
     </div>
       <div class="main2">
               <!-- <button onclick="test123()">123</button> -->
       <!--inner這裡是未有在內部可以y軸滑動-->
-      <div class="inner">
         <!--books是很多個oneBook   oneBook是一本書的樣子-->
-        <!-- <div class="book">
-          <img src="./image/1.jpg">
+          <span class="BookLeft"><img src="./image/1.jpg"></span>
+          <div class="BookRight  ">
+            <h1 class=" center mb-1 mt-1">红楼梦</h1>
+            <div class="desc lh-2 ">
+              <!-- 不要超过150字 -->
+              《红楼梦》以贾宝玉、林黛玉、薛宝钗之间的恋爱婚姻悲剧为主线，
+              描写了以贾家为代表的四大家族的兴衰，
+              揭示了封建大家庭的各种错综复杂的矛盾，
+              表现了封建的婚姻、道德、文化、教育的腐朽、堕落，塑造了一系列贵族、
+              平民以及奴隶出身的女子的悲剧形象，展示了极其广阔的封建社会的典型生活环境，
+              曲折地反映了那个社会必然崩溃、没落的历史趋势。
+            </div>
+          </div>
+            <div class=" shelf-btn">
+              <button onclick="readBook()" class="layui-btn layui-btn-radius ">点击阅读</button>
+              <button onclick="addShelf()" class="layui-btn layui-btn-radius layui-btn-normal">加入书架</button>
+            </div>
         </div>
-       
-        <div class="">点击阅读</div> -->
-      </div>
-      </div>
+        <div class="main3">
+          <h2 class="mb-2">精彩点评</h2>
+          <div class="ml-1">
+            <img src="./image/1.jpg" class="tx circle small m-0">
+            <span class="mb-5px reader" >路人甲</span>
+            <div>红楼梦醒知前尘，回首已非世中人</div>
+          </div>
+          <div class="mt-1 ml-1">
+            <img src="./image/2.jpg" class="tx circle small m-0">
+            <span class="mt-1 reader" >路人乙</span>
+            <div>红楼梦醒知前尘，回首已非世中人</div>
+          </div>
+        </div>
         
 
 
@@ -62,6 +85,9 @@
         //前往首頁
         window.location.href = ip+"index.html"
       }
+      function addShelf(){
+
+      }
      
    
      
@@ -78,15 +104,53 @@
   
 }
 .main2{
+  margin-left: 5%;
+  margin-right: 5%;
   top: 80px;
-  position:absolute;
   border: 1px solid #dde0e4;
   overflow-y: auto;
   overflow-x: hidden;
+  width: 90%;
 }
-.inner{
-  height: 100%;
-  width: 100%;
+.main3{
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 1rem;
+  border: 1px solid #dde0e4;
+  width: 90%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+}
+.BookLeft{
+  margin-left: 10%;
+}
+.BookRight{
+  width:50%;
+  margin-left:5% ;
+  display: inline-block;
+}
+.font-20{
+  font-size: 20px;
+}
+.lh-2{
+  line-height: 21px;
+}
+.shelf-btn{
+  bottom:  50px;
+  position: relative;
+  text-align: center;
+}
+
+.reader{
+  display: inline-block;
+}
+.small{
+  width: 30px;
+  height: 30px;
+}
+.m-0{
+  margin: 0px;
 }
 </style>
 </html>
