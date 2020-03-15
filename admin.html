@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" href="./css/layui.css">  
+    <link rel="stylesheet" href="./css/common.css">  
+    <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./layui/layui/dist/.all.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
+</head>
+<body>
+  <div>
+    <input type='file' accept='text/plain' onchange='openFile(event)'><br>
+    <div id="output" onmouseup="mouseup()"></div>
+</div>
+        
+
+
+
+
+   
+  </body>
+<script>
+      $(function() {
+        init();
+      });
+      function init(){
+
+      }
+      var openFile = function(event) {
+            var input = event.target;
+            console.log(event)
+            var reader = new FileReader();
+            reader.onload = function() {
+                if(reader.result) {
+                    //显示文件内容
+                    $("#output").html(reader.result);
+                }
+            };
+            reader.readAsText(input.files[0]);
+        };
+        function mouseup(){
+          // console.log("mouseup")
+          let w = window.getSelection();
+        }
+     
+   
+     
+    
+</script>
+<style>
+
+</style>
+</html>

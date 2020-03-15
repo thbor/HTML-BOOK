@@ -5,12 +5,12 @@
     <link rel="stylesheet" href="./css/layui.css">  
     <link rel="stylesheet" href="./css/common.css">  
     <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="./layui/layui/dist/.all.js"></script>
+    <script type="text/javascript" src="./layui/layui/dist/layui.all.js"></script>
     <script type="text/javascript" src="./js/common.js"></script>
 </head>
 <body>
-   <div onmouseup="mouseup()">
-
+  <!-- contenteditable="true" -->
+   <div class="contenttext" >
     《红楼梦》在中国小说艺术发展史上，既结束了一个时代，
     也开创了一个时代。它的作者曹雪芹比托尔斯泰、巴尔扎克、
     狄更斯等世界性的艺术巨擘要早一个世纪，就登上了全球文学的高峰。
@@ -25,7 +25,15 @@
     身分是“包衣”。这种“包衣”的家庭，对皇帝，他们是奴才；而论其地位，则又属贵族。曹雪芹的曾祖曹玺任江宁织造，
     曾祖母孙氏是康熙的褓母，祖父曹寅做过康熙的伴读和御前侍卫，后任
    </div>
-        
+   
+   <div id="showBjDiv" style="display: none;"  >
+      
+   </div>
+   <!-- <button id="SetToBold" onclick="SetToBold()">click</button> -->
+<!--    
+   <div class="contenttext">
+    和客户端的 JavaScript 不同的是，PHP 代码是运行在服务端的。如果您在您的服务器上建立了如上例类似的代码，则在运行该脚本后，客户端就能接收到其结果，但他们无法得知其背后的代码是如何运作的。您甚至可以将 WEB 服务器设置成让 PHP 来处理所有的 HTML 文件，这么一来，用户就无法得知服务端到底做了什么。  
+    </div> -->
 
 
 
@@ -35,34 +43,137 @@
 <script>
       $(function() {
         init();
+        t();
+        // t2();
       });
       function init(){
       
       }
-      function mouseup(){
-        var w = window.getSelection();
-        let d = w.anchorNode;
-        let begin = w.focusOffset;
-        let end = w.anchorOffset;
-        console.log("w",w)
-        console.log("begin",begin)
-        console.log("end",end)
-        if(begin==end){
-          //未选取任何信息
-        }else{
-          if(begin>end){
-            let temp = begin;
-            begin = end;
-            end = temp
+      function t(){
+        $('.contenttext').mouseup(function(){
+          // SetToBold();
+          var range = window.getSelection().getRangeAt(0);
+          var container = range.startContainer;
+          var txt = window.getSelection?window.getSelection():document.selection.createRange().text;
+          if(txt){
+            let w = window.getSelection();
+          // console.log("r",range)
+          const start = {
+            node: range.startContainer,
+            offset: range.startOffset
+          };
+          const end = {
+            node: range.endContainer,
+            offset: range.endOffset
+          };
+          CssTxt(txt,start.offset,end.offset);
+          let length = end.offset-start.offset
+          var rect = range.getBoundingClientRect();
+          console.log(11111111,rect)
+          var x = rect.left, y = rect.top;
+          let x1 = (rect.left+rect.width)/2
+          //y1不是一行的话要减掉一个行高
+          let y1 = (rect.top+rect.y)
+          if(length!=0){
+            showBj(x1,y1,length,txt,range);
+          }else{
+            hiddenBj();
           }
-        }
-        console.log("d",d)
-        console.log("begin2",begin)
-        console.log("end2",end)
-        let w1 = (w.anchorNode.wholeText)
-        
-        console.log("w1",w1)
+          }
+         
+      })
+        // $(".contenttext").mouseup(function (e) {
+        //         var txt;
+        //         var parentOffset = $(this).offset();
+        //         var x = e.pageX - parentOffset.left;
+        //         var y = e.pageY - parentOffset.top;
+        //         txt = window.getSelection();
+        //         if (txt.toString().length > 1) {
+        //             alert(txt);
+        //         }
+        //     });
       }
+      // function t2(){
+      //   $('.chapterInfo').mouseup(function(){
+      //     var txt = window.getSelection?window.getSelection():document.selection.createRange().text;
+      //     alert(txt) ;
+      // })
+      // }
+      function CssTxt(txt,start,end){
+
+        let allTxt = txt.anchorNode.wholeText;
+        //分割成数组，后面可以根据开始和结束的位置得到数据
+        allTxt = allTxt.split('');
+        var chooseArr = [];
+        var chooseTxt = [];
+        for(let i=start;i<end;i++){
+          chooseArr.push(allTxt[i]);
+        }
+        chooseTxt = chooseArr.join('')
+        console.log("txt",allTxt)
+        console.log(chooseArr)
+        console.log(chooseTxt)
+      }
+      function mouseupBj(){
+
+      }
+      function hiddenBj(){
+        document.getElementById("showBjDiv").style.display = "none"
+      }
+      function showBj(x,y,length,txt,range){
+        let nHtml = "";
+        console.log(typeof range)
+        var obj = range
+        var copy = Object.assign({}, range);
+        console.log(copy); // { a: 1 }
+        // console.log(JSON.parse(range))
+        console.log(JSON.stringify(range))
+        // x = x+14*(选取字数)  14为fontsize
+        //TODO  这里的x只选取一行的字数
+        // x = x+12*length-5;
+        // y = y+20;
+        // <div id="showBjDiv" style="display: none;"  class="showBjDiv">
+        nHtml+='<div id="showBjDiv" class="showBjDiv" style="position:fixed;left:'+x+"px"+';top:'+y+"px"+'">'
+        nHtml+='<span onclick=addBj() class="span-bj">做笔记</span>'
+        // nHtml+='<span onclick=clickMark("'+(range)+'") class="span-bj">马克笔🖊</span>'
+        nHtml+= '<span href="javascript:void(0);" class="span-bj" id="mark">马克笔🖊</span>';
+        nHtml+='</div>'
+        // onclick=swiperItemClick('+JSON.stringify(item)+')
+        let ele = document.getElementById("showBjDiv")
+        // console.log(77,ele)
+        $("#showBjDiv").html(nHtml)
+        document.getElementById("showBjDiv").style.display = ""
+        document.getElementById("mark").addEventListener("click", function(){ 
+          clickMark(range)
+      });
+      }
+      function addBj(){
+        console.log("添加笔记")
+      }
+     function clickMark(range){
+        var selectionContents = range.extractContents();
+          var span = document.createElement("span");
+          span.style.color = "red";
+          span.appendChild(selectionContents);
+          range.insertNode(span);
+      // SetToBold();
+      //TODO 高亮
+     }
+     function SetToBold () {
+          var range = window.getSelection().getRangeAt(0);
+          var selectionContents = range.extractContents();
+          var span = document.createElement("span");
+          // span.style.color = "red";
+          span.className='flow-wave'
+          span.appendChild(selectionContents);
+          range.insertNode(span);
+        // var span = document.createElement('span');
+        // span.style.color = 'red'
+            // document.execCommand('bold', true, null)
+            // var result = document.execCommand('bold');
+            // console.log(result)
+            // document.execCommand('Underline');
+        }
       
      
    
@@ -70,6 +181,24 @@
     
 </script>
 <style>
+  .showBjDiv{
+    color: aliceblue;
+    background-color: cadetblue;
+    width: 160px;
+    margin-right: 40px;
+    text-align: center;
+  }
+  .span-bj{
+    margin-left: 10px;
+    cursor: pointer;
+  }
+  ::selection {
+    background:rgb(214, 105, 132); 
+    color:white;
+}
 
+.flow-wave {
+   background-color: teal;
+}
 </style>
 </html>
