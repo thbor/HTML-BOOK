@@ -8,14 +8,14 @@
     <script type="text/javascript" src="./layui/layui/dist/layui.all.js"></script>
     <script type="text/javascript" src="./js/common.js"></script>
 </head>
-<body>
+<body class="contenttext">
 
   <iframe id="frame-content" name="myFrame" MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no src="./layout.html" width="100%"  height="600px"></iframe> 
   <div class="main" id="main">
     <div class="main2">
       <div class="inner">
         <!--books是很多個oneBook   oneBook是一本書的樣子-->
-        <div class="contenttext">
+        <div >
           <h1 class="center">第一章</h1>
          《红楼梦》在中国小说艺术发展史上，既结束了一个时代，
          也开创了一个时代。它的作者曹雪芹比托尔斯泰、巴尔扎克、
@@ -51,11 +51,10 @@
          曾祖母孙氏是康熙的褓母，祖父曹寅做过康熙的伴读和御前侍卫，后任
          曾祖母孙氏是康熙的褓母，祖父曹寅做过康熙的伴读和御前侍卫，后任
          曾祖母孙氏是康熙的褓母，祖父曹寅做过康熙的伴读和御前侍卫，后任
+         
         </div>
-        
-          <div id="showBjDiv" style="display: none;"  >
-            
-          </div>
+        <div id="showBjDiv" style="display: none;" ></div>
+          
           <div class="center">
             <button class="layui-btn layui-btn-radius layui-btn-warm" onclick="preChapter()">上一章</button>
             <button class="layui-btn layui-btn-radius layui-btn-warm" onclick="toBook()">返回书籍</button>
@@ -156,7 +155,7 @@
         //一行20 每增加一行增加40px
         let heightNum = (height+20)/40
         //191为y第一行的起始位置
-        let y = top
+        let y = rect.y
         // let y=top-height/heightNum;
         // let y = rect.height*heightNum;
         console.log(x,y)
@@ -213,6 +212,9 @@
     margin-right: 40px;
     text-align: center;
     opacity:0.8;
+    line-height:30px;
+    font-size: 15px;
+    border-radius: 10px;
   }
   .span-bj{
     margin-left: 10px;
