@@ -156,11 +156,11 @@
         //一行20 每增加一行增加40px
         let heightNum = (height+20)/40
         //191为y第一行的起始位置
-        let y = height+20+top
+        let y = top
         // let y=top-height/heightNum;
         // let y = rect.height*heightNum;
         console.log(x,y)
-        nHtml+='<div id="showBjDiv" class="showBjDiv" style="position:absolute;left:'+x+"px"+';top:'+y+"px"+'">'
+        nHtml+='<div id="showBjDiv" class="showBjDiv" style="position:fixed;left:'+x+"px"+';top:'+y+"px"+'">'
         nHtml+='<span onclick=addBj() class="span-bj">做笔记</span>'
         nHtml+= '<span  class="span-bj" id="mark">马克笔🖊</span>';
         nHtml+='</div>'
