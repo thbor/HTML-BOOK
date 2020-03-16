@@ -66,6 +66,7 @@
       function init(){
         returnZindex();
         initTree();
+        //TODO  初始化要选中changeContent一个显示信息
       }
       function returnZindex(){
         let dom = document.getElementById("main")
@@ -90,9 +91,8 @@
       function changeContent(category){
         let book = document.getElementById("book");
         let booksJson=[
-          {bookId:"1",bookName:"临渊行",img:"./image/1.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
-          {bookId:"2",bookName:"临渊行",img:"./image/2.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
-          {bookId:"3",bookName:"临渊行",img:"./image/3.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
+          {bookId:"1",bookName:"临渊行",img:"./image/1.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到"},
+          {bookId:"3",bookName:"临渊行",img:"./image/3.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，"},
           {bookId:"4",bookName:"临渊行",img:"./image/4.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
           {bookId:"5",bookName:"临渊行",img:"./image/5.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
           {bookId:"6",bookName:"临渊行",img:"./image/6.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
@@ -103,17 +103,23 @@
         ]
         let nHtml = "";
         booksJson.forEach(item=>{
-          nHtml+='<div class="oneEle"><img src="'+item.img+'" class="img ib mr-1 menuBook" onlick=toBook("'+bookId+'")>'
+          let itemDesc = item.desc
+          nHtml+='<div class="oneEle"><img src="'+item.img+'" class="img ib mr-1 menuBook" onlick=toBook("'+item.bookId+'")>'
           nHtml+='<div class="ib bookInfo">'
           nHtml+='<div class="title mb-1">'+item.bookName+'</div>'
           nHtml+='<div class="author mb-1">'+item.auth+'</div>'
-          nHtml+='<div class="author mb-1">'+item.desc+'</div>'
+          if(item.desc.length>70){
+            itemDesc = itemDesc.substring(0,70)+"...";
+            nHtml+='<div class="author mb-1">'+itemDesc+'<a class="cursor" onclick=toBook("'+item.bookId+'")>更多</a></div>'
+          }else{
+            nHtml+='<div class="author mb-1">'+itemDesc+'</div>'
+          }
           nHtml+='</div></div>'
           $("#book").html(nHtml)
         })
       }
       function toBook(id){
-        //TODO ajax根据bookid请求数据，获取书籍的信息 并跳转到clickBook页面
+        //TODO ajax根据bookid请求数据，获取书籍的信息 并跳转到clickBook页面,在这个页面根据id获取book信息，然后将json初始化
         let ip = getChildIp();
         // window.location.href = ip+'clickBook.html'
         document.location.href("ip+'clickBook.html'?id="+id); 
@@ -145,14 +151,14 @@
   top: 0px; /*不能去掉*/
   left: 200px;
   position:absolute;
-  
+  width: calc(100%  - 200px);
 }
 .overflow{
-  border: 1px solid #dde0e4;
   overflow-y: auto;
   overflow-x: hidden;
   height: 600px;
   position: relative;
+  width: 100%;
 }
 .inner{
   height: 100%;
@@ -171,15 +177,19 @@
   position: relative;
   top: 20px;
   margin-bottom: 30px;
+  margin-right: 5%;
+  /* border: 1px solid green; */
+
 }
 .menuBook{
   width: 200px;
   height: 250px;
 }
 .bookInfo{
-  width:calc(90%  - 400px);
-  top: 80px;
+  width:calc(100%  - 400px);
+  top: 40px;
   position: relative;
+  /* border: 1px solid red; */
 }
 
 
