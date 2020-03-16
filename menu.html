@@ -1,111 +1,187 @@
 <!DOCTYPE html>
 <head>
     <meta charset="UTF-8">
-    <title>布局頁面</title>
+    <title>菜单</title>
     <link rel="stylesheet" href="./css/layui.css">  
     <link rel="stylesheet" href="./css/common.css">  
-     <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="./layui/layui/dist/layui.all.js"></script>
     <script type="text/javascript" src="./js/common.js"></script>
 </head>
-<body >
-  <!-- <iframe MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no src="./MyShelf.html" width="100%"  height="auto"></iframe> -->
-     <!--上面部分-->
-     <div class=" nav1">
-        <div class="layui-row">
-          <div class="layui-col-md3 cursor  " onclick="clickTitle()">
-            <div class="ib mf">
-                <img src="./image/book2.png" height="50" width="50">
-                <span class="title white">在线书屋</span>
-            </div>
-          </div>
-        
-          <div class="float-right mr-1" style="display: none;" id="notLogin">
-            <button type="button" class="layui-btn layui-btn-primary" onclick="clickLogin()">登录</button>
-            <button type="button" class="layui-btn layui-btn-primary" onclick="clickRegister()">注册</button>
-          </div>
-          <div id="logged" style="display: none;border: 1px solid transparent;width: 100px;height: 100px;float: right;" onmousemove="showPerson()" onmouseout="hiddenPerson()">
-                <img src="./image/girl.jpg" class="float-right circle tx"  >
-                <div class="showLogout" style="visibility:hidden;" id="showLogout">
-                  <li class="li-showLogout" onclick="logout()">退出登錄</li>
-                  <li class="li-showLogout"><a href="./MyShelf.html">我的書架</a></li>
-                </div>
-          </div>
-        </div>
-      </div>
+<body class="contenttext">
 
-      <div>
-            <!--面包屑-->
-            <ul class="layui-nav test" lay-filter="">
-               <li class="layui-nav-item"><a href="">首页</a></li>
-               <li class="layui-nav-item layui-this"><a href="">玄幻魔法</a></li>
-               <li class="layui-nav-item"><a href="">武侠修真</a></li>
-               <li class="layui-nav-item">
-                 <a href="javascript:;">都市言情</a>
-                 <dl class="layui-nav-child"> 
-                   <dd><a href="">历史军事</a></dd>
-                   <dd><a href="">侦探推理</a></dd>
-                   <dd><a href="">网游动漫</a></dd>
-                 </dl>
-               </li>
-               <li class="layui-nav-item"><a href="">社区</a></li>
-             </ul>
-           <!--面包屑 end-->
-      </div>
-
-        
-        <!--上面部分 end-->
-        <!--轮播图-->
-       
-        <!--登录-->
-            <form class="layui-form" id="loginId" action="" style="display: none;">
-                <div class="layui-form-item">
-                  <label class="layui-form-label">用戶名</label>
-                  <div class="layui-input-block">
-                    <input type="text" name="lusername" lay-verify="lusername" placeholder="请输入用戶名" autocomplete="off" class="layui-input">
-                  </div>
+  <iframe id="frame-content" name="myFrame" MARGINWIDTH=0 MARGINHEIGHT=0 HSPACE=0 VSPACE=0 FRAMEBORDER=0 SCROLLING=no src="./layout.html" width="100%"  height="600px"></iframe> 
+  <div class="main" id="main">
+    <div class="menu-left">
+      <ul class="layui-nav layui-nav-tree layui-nav-side" id="lay-tree" lay-filter="test">
+        </ul>
+    </div>
+   
+    <div class="main2" >
+      <div class="inner">
+        <div class=" overflow">
+          <div id="book">
+            <!-- <div class="oneEle">
+              <img src="./image/1.jpg" class="img ib mr-1">
+              <div class="ib">
+                <div class="title mb-1">临渊行</div>
+                <div class="author mb-1">宅猪</div>
+                <div >苏云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人。
+                  　　他更没有想到天门镇外，
                 </div>
-                <div class="layui-form-item">
-                  <label class="layui-form-label">密码</label>
-                  <div class="layui-input-inline">
-                    <input type="password" name="lpassword" lay-verify="lpassword" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                  </div>
-                </div>
-                <!-- <button class="sub-bindbtn" lay-submit lay-filter="bind" style="display: none;"> -->
-              </form>
-        <!--登录 end-->
-        <!--註冊-->
-        <form class="layui-form" action="" id="registerId" style="display: none;">
-            <div class="layui-form-item">
-                <label class="layui-form-label">用户名</label>
-                <div class="layui-input-block">
-                <input type="text" name="rusername" lay-verify="rusername"  placeholder="请输入用户名" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">密码</label>
-                <div class="layui-input-block">
-                <input type="password" name="rpassword" id="rpassword" lay-verify="rpassword" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">確認密码</label>
-                <div class="layui-input-block">
-                <input type="password" name="rcheckPassword" id="rcheckPassword" lay-verify="rcheckPassword" placeholder="请输入密码" autocomplete="off" class="layui-input">
-                </div>
-            </div>
-        </form>
+              </div>
+            </div> -->
+          </div>
       
-        <!--註冊 end-->
-        <!--轮播图 end-->
-        <script>
-            //初始化
-            $(function() {
-              //验证是否登录，登录则显示用户信息，否则显示登录信息
-              ifLogin();
-            });
-            
+        </div>
+        </div>
+       
+          
         
-        </script>
-</body>
+
+      </div>
+  
+    </div>
+  </div>
+   
+      
+
+
+
+
+  </div>
+
+
+
+
+
+
+   
+  </body>
+<script>
+      $(function() {
+        init();
+        
+      });
+      function init(){
+        returnZindex();
+        initTree();
+      }
+      function returnZindex(){
+        let dom = document.getElementById("main")
+        dom.style.zIndex = 0;
+      }
+      function initTree(){
+        let menu = [
+          {"menuName":"玄幻"},
+          {"menuName":"言情"},
+          {"menuName":"科幻"},
+          {"menuName":"重生"},
+          {"menuName":"历史"}
+        ]
+        var nHtml = "";
+        menu.forEach(item=>{
+          nHtml+= '<li class="layui-nav-item layui-nav-itemed"><a onclick=changeContent("'+item.menuName+'")>'+item.menuName+'</a></li>'
+        })
+        $("#lay-tree").html(nHtml)
+        
+      }
+      //点击树
+      function changeContent(category){
+        let book = document.getElementById("book");
+        let booksJson=[
+          {bookId:"1",bookName:"临渊行",img:"./image/1.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
+          {bookId:"2",bookName:"临渊行",img:"./image/2.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
+          {bookId:"3",bookName:"临渊行",img:"./image/3.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
+          {bookId:"4",bookName:"临渊行",img:"./image/4.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
+          {bookId:"5",bookName:"临渊行",img:"./image/5.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
+          {bookId:"6",bookName:"临渊行",img:"./image/6.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
+          {bookId:"7",bookName:"临渊行",img:"./image/7.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
+          {bookId:"8",bookName:"临渊行",img:"./image/8.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
+          {bookId:"9",bookName:"临渊行",img:"./image/1.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
+          {bookId:"10",bookName:"临渊行",img:"./image/1.jpg",auth:"宅猪",desc:"云怎么也没有想到，自己生活了十几年的天门镇，只有自己是人"},
+        ]
+        let nHtml = "";
+        booksJson.forEach(item=>{
+          nHtml+='<div class="oneEle"><img src="'+item.img+'" class="img ib mr-1 menuBook" onlick=toBook("'+bookId+'")>'
+          nHtml+='<div class="ib bookInfo">'
+          nHtml+='<div class="title mb-1">'+item.bookName+'</div>'
+          nHtml+='<div class="author mb-1">'+item.auth+'</div>'
+          nHtml+='<div class="author mb-1">'+item.desc+'</div>'
+          nHtml+='</div></div>'
+          $("#book").html(nHtml)
+        })
+      }
+      function toBook(id){
+        //TODO ajax根据bookid请求数据，获取书籍的信息 并跳转到clickBook页面
+        let ip = getChildIp();
+        // window.location.href = ip+'clickBook.html'
+        document.location.href("ip+'clickBook.html'?id="+id); 
+      }
+      function getChildIp(){
+        const ip = myFrame.window.initIP();
+        console.log("ip"+ip)
+        return ip;
+      }
+
+     
+     
+     
+   
+     
+    
+</script>
+<style>
+ 
+.main{
+  position:absolute;
+  top: 60px;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  
+}
+.main2{
+  top: 0px; /*不能去掉*/
+  left: 200px;
+  position:absolute;
+  
+}
+.overflow{
+  border: 1px solid #dde0e4;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 600px;
+  position: relative;
+}
+.inner{
+  height: 100%;
+  width: 100%;
+}
+.layui-nav-side{
+  position: absolute;
+}
+.menu-left{
+  height: 100%;
+  width: 20%;
+  display: inline-block;
+}
+.oneEle{
+  left: 5%;
+  position: relative;
+  top: 20px;
+  margin-bottom: 30px;
+}
+.menuBook{
+  width: 200px;
+  height: 250px;
+}
+.bookInfo{
+  width:calc(90%  - 400px);
+  top: 80px;
+  position: relative;
+}
+
+
+</style>
 </html>
