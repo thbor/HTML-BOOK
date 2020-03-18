@@ -160,14 +160,15 @@
         for(let title of bookTitle){
           thHtml+='<th>'+title.name+'</th>'
         }
-        thHtml+='<th>操作</th>'
+        thHtml+='<th style="width:150px">操作</th>'
         $("#thId").html(thHtml);
         for(let item of bookJson){
           tBodyHtml+='<tr>'
           for(let key of Object.keys(item)){
             tBodyHtml+='<td>'+item[key]+'</td>'
           }
-          tBodyHtml+='<td><button class="layui-btn layui-btn-disabled">刪除</button></td>'
+          tBodyHtml+='<td><button type="button" class="layui-btn layui-btn-normal mb-1">修改</button>'
+          tBodyHtml+='<button type="button" class="layui-btn layui-btn-danger float-right mb-1">刪除</button></td>'
           tBodyHtml+='</tr>'
         }
         $("#tBodyId").html(tBodyHtml)
