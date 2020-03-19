@@ -73,8 +73,8 @@
       })
     })
   }
-     //彈出窗口模板2  带时间的
-     function alertcomfirm2(id,title,html,layFilter,laydateId,validateMethod,ajaxMethod){
+     //彈出窗口模板2  带时间laydate的弹窗  html位js拼接的数据
+     function alertcomfirm2(id,title,html,layFilter,laydateId,validateMethod,ajaxMethod,data){
       layui.use(['form','layer','laydate'], function(){
         var form = layui.form;
         var laydate = layui.laydate;
@@ -100,10 +100,14 @@
           'lay-submit': ''
           });
         //重新渲染form
+        returnParentFormData(data);
         form.render();
         laydate.render({ 
           elem: laydateId,
           type: 'datetime',
+          trigger:'click',
+          format:'yyyy-MM-dd HH:mm:ss',
+          value:data.publicationTime
           // ,range: true //或 range: '~' 来自定义分割字符
         });
           // parentListen();
@@ -124,8 +128,11 @@
     })
   }
     function parentListen(){
-      parent.changeZindex()
+      parent.changeZindex();
     }
     function returnParentListen(){
-      parent.returnZindex()
+      parent.returnZindex();
+    }
+    function returnParentFormData(data){
+      parent.getFormData(data);
     }
