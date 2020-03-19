@@ -74,7 +74,7 @@
     })
   }
      //彈出窗口模板2  带时间的
-     function alertcomfirm2(id,title,contentId,layFilter,laydateId,validateMethod,ajaxMethod){
+     function alertcomfirm2(id,title,html,layFilter,laydateId,validateMethod,ajaxMethod){
       layui.use(['form','layer','laydate'], function(){
         var form = layui.form;
         var laydate = layui.laydate;
@@ -86,8 +86,8 @@
         area: '450px',
         title:title,
         id:id,
-        content: $(contentId).html()
-        ,btn: ['确定']
+        content: html  //這裡用html的拼接  nHtml
+        ,btn: ['确定','取消']
         //點擊右上角X
         ,cancel:function(){
           returnParentListen();
@@ -103,9 +103,7 @@
         form.render();
         laydate.render({ 
           elem: laydateId,
-          // content: $("#laydateId"),
           type: 'datetime',
-          // trigger: 'click'
           // ,range: true //或 range: '~' 来自定义分割字符
         });
           // parentListen();

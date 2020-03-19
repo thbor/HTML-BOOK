@@ -119,7 +119,7 @@
       </div>
     </div>
     <!--新增书籍-->
-    <form class="layui-form" id="addBook" action="" style="display: none;">
+    <!-- <form class="layui-form" id="addBook" action="" style="display: none;">
       <div class="layui-form-item">
         <label class="layui-form-label">书籍名称</label>
         <div class="layui-input-block">
@@ -146,14 +146,9 @@
         <label class="layui-form-label">简介</label>
         <div class="layui-input-inline">
           <input type="txt" name="synopsis" lay-verify="synopsis" placeholder="请输入简介" autocomplete="off" class="layui-input">
-          <!-- <input type="text" id="test1"> -->
         </div>
       </div>
-
-
-
-      <!-- <button class="sub-bindbtn" lay-submit lay-filter="bind" style="display: none;"> -->
-    </form>
+    </form> -->
     <!--新增书籍 end-->
     
   </body>
@@ -180,22 +175,22 @@
       function initTable(){
         //加載數據
         var bookJson=[
-                {bookName:"密战无痕",author:"长风",category:"历史军事",des:"密战无痕的简介"},
-                {bookName:"凡尘一剑",author:"剑东来",category:"武侠修真",des:"凡尘一剑的简介"},
-                {bookName:"我真的是人生赢家",author:"刘阿懦",category:"其他类型",des:"我真的是人生赢家的简介"},
-                {bookName:"次元法典",author:"西贝猫",category:"网游动漫",des:"托身白刃里，浪迹红的简介"},
-                {bookName:"托身白刃里，浪迹红",author:"接卡口",category:"武侠修真",des:"密战无痕的简介"},
-                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
-                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
-                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
-                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
-                {bookName:"我的异能悠闲生活",author:"开水很白",category:"都市言情",des:"密战无痕的简介"},
+                {name:"密战无痕",author:"长风",publishingHouse:"历史军事",synopsis:"密战无痕的简介"},
+                {name:"凡尘一剑",author:"剑东来",publishingHouse:"武侠修真",synopsis:"凡尘一剑的简介"},
+                {name:"我真的是人生赢家",author:"刘阿懦",publishingHouse:"其他类型",synopsis:"我真的是人生赢家的简介"},
+                {name:"次元法典",author:"西贝猫",publishingHouse:"网游动漫",synopsis:"托身白刃里，浪迹红的简介"},
+                {name:"托身白刃里，浪迹红",author:"接卡口",publishingHouse:"武侠修真",synopsis:"密战无痕的简介"},
+                {name:"我的异能悠闲生活",author:"开水很白",publishingHouse:"都市言情",synopsis:"密战无痕的简介"},
+                {name:"我的异能悠闲生活",author:"开水很白",publishingHouse:"都市言情",synopsis:"密战无痕的简介"},
+                {name:"我的异能悠闲生活",author:"开水很白",publishingHouse:"都市言情",synopsis:"密战无痕的简介"},
+                {name:"我的异能悠闲生活",author:"开水很白",publishingHouse:"都市言情",synopsis:"密战无痕的简介"},
+                {name:"我的异能悠闲生活",author:"开水很白",publishingHouse:"都市言情",synopsis:"密战无痕的简介"},
         ]
         var bookTitle = [
-        {name:'書名',key:'bookName'},
+        {name:'书籍名称',key:'name'},
         {name:'作者',key:'author'},
-        {name:'分類',key:'category'},
-        {name:'描述',key:'des'}
+        {name:'出版社',key:'publishingHouse'},
+        {name:'简介',key:'synopsis'}
         ]
         if(bookJson){
           var keys = Object.keys(bookJson[0]);
@@ -218,15 +213,27 @@
           tBodyHtml+='</tr>'
         }
         $("#tBodyId").html(tBodyHtml)
-        // for(let i=0;i<bookJson.length;i++){
-        //   for(let key of Object.keys(bookJson[i])){
-        //     thHtml+='<th>'+bookJson[key]+'</th>'
-        //   }
-        // }
       }
       function uploadBook(){
+        let html = pjBook();
+        console.log('html',html)
         console.log("uploadBook")
-        alertcomfirm2("addBookLayer","添加书籍","#addBook","addBookVerify",'#publicationTime2',validateAddBook,ajaxAddBook)
+        alertcomfirm2("addBookLayer","添加书籍",html,"addBookVerify",'#publicationTime2',validateAddBook,ajaxAddBook)
+      }
+      //拼接Book   由於時間控件的問題，這裡必須用拼接組裝js，否則會
+      function pjBook(){
+        var nHtml='<div class="layui-form-item">'
+        nHtml+= '<label class="layui-form-label">书籍名称</label>'
+        nHtml+='<div class="layui-input-block">'
+        nHtml+='<input type="text" name="name" lay-verify="name" placeholder="请输入书籍名称" autocomplete="off" class="layui-input">'
+        nHtml+='</div>'
+        nHtml+='</div>'
+        nHtml+='<div class="layui-form-item">'
+        nHtml+= '<label class="layui-form-label">出版时间</label>'
+        nHtml+='<div class="layui-input-block">'
+        nHtml+=' <input type="text" class="layui-input" id="publicationTime2" placeholder="yyyy-MM-dd HH:mm:ss">'
+        nHtml+='</div>'
+        return nHtml;
       }
       function validateAddBook(form){
               var form = layui.form;
